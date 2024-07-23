@@ -1,0 +1,96 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="misapplication-tap-highlight" content="no" />
+    <meta name="HandheldFriendly" content="true" />
+    <meta name="MobileOptimized" content="320" />
+    <title>运动和方向传感器</title>
+    <meta charset="UTF-8">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+    </style>
+    <script type="text/javascript">
+        function getAccelerometer() {
+            var acc = new Accelerometer({frequency: 60});
+            acc.addEventListener('activate', () => console.log('[NEU]Ready to measure.'));
+            acc.addEventListener('error', error => console.log(`[NEU]Error: ${error.name}`));
+            acc.addEventListener('reading', () => {
+                console.log(`[doc_sensor]Accelerometer ${acc.timestamp}, ${acc.x}, ${acc.y}, ${acc.z}.`);
+            });
+            acc.start();
+        }
+        function getGyroscope() {
+            var gyr = new Gyroscope({frequency: 60});
+            gyr.addEventListener('activate', () => console.log('[NEU]Ready to measure.'));
+            gyr.addEventListener('error', error => console.log(`[NEU]Error: ${error.name}`));
+            gyr.addEventListener('reading', () => {
+                console.log(`[doc_sensor]Gyroscope ${gyr.timestamp}, ${gyr.x}, ${gyr.y}, ${gyr.z}.`);
+            });
+            gyr.start();
+        }
+        function getAbsoluteOrientationSensor() {
+            var aos = new AbsoluteOrientationSensor({frequency: 60});
+            aos.addEventListener('activate', () => console.log('Ready to measure.'));
+            aos.addEventListener('error', error => console.log(`Error: ${error.name}`));
+            aos.addEventListener('reading', () => {
+                console.log(`AbsoluteOrientationSensor data: ${ros.timestamp}, ${ros.quaternion}`);
+            });
+            aos.start();
+        }
+
+        function listenDeviceMotionEvent() {
+            if ('DeviceMotionEvent' in window) {
+                window.addEventListener('devicemotion', handleMotionEvent, false);
+            } else {
+              console.log('此浏览器不支持DeviceMotionEvent');
+            }
+        }
+
+        function handleMotionEvent(event) {
+            const x = event.accelerationIncludingGravity.x;
+            const y = event.accelerationIncludingGravity.y;
+            const z = event.accelerationIncludingGravity.z;
+            console.log(`DeviceMotionEvent data: ${event.timeStamp}, ${x}, ${y}, ${z}`);
+        }
+
+        function listenDeviceOrientationEvent() {
+            if ('DeviceOrientationEvent' in window) {
+                window.addEventListener('deviceorientation', handleOrientationEvent, false);
+            } else {
+                console.log('此浏览器不支持DeviceOrientationEvent');
+            }
+        }
+
+        function listenDeviceOrientationEvent2() {
+            if ('DeviceOrientationEvent' in window) {
+                window.addEventListener('deviceorientationabsolute', handleOrientationEvent, false);
+            } else {
+                console.log('此浏览器不支持DeviceOrientationEvent');
+            }
+        }
+
+        function handleOrientationEvent(event) {
+            console.log(`DeviceOrientationEvent data: ${event.timeStamp}, ${event.absolute}, ${event.alpha}, ${event.beta}, ${event.gamma}`);
+        }
+    </script>
+</head>
+<body>
+<div id="dcontent" class="dcontent">
+    <h3>运动和方向:</h3>
+    <ul class="dlist">
+        <button type="button" onclick="getAccelerometer()">加速度</button>
+        <button type="button" onclick="getGyroscope()">陀螺仪</button>
+        <button type="button" onclick="getAbsoluteOrientationSensor()">设备方向(绝对定位)</button>
+    </ul>
+    <ul class="dlist">
+        <li><button type="button" onclick="listenDeviceMotionEvent()">设备运动事件</button></li>
+        <li><button type="button" onclick="listenDeviceOrientationEvent()">设备方向事件</button></li>
+        <li><button type="button" onclick="listenDeviceOrientationEvent2()">设备方向事件(绝对定位)</button></li>
+    </ul>
+</div>
+</body>
+</html>
