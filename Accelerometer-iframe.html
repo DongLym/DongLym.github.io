@@ -26,269 +26,61 @@
         }
     </style>
     <script type="text/javascript">
-        var timestampArray = [];
-        var timestampArray2 = [];
-        function log(timestamp, x, y, z) {
-             document.getElementById('x').textContent = x;
-             document.getElementById('y').textContent = y;
-             document.getElementById('z').textContent = z;
-             setTimestamp(timestamp, 'freq');
-        }
         function log2(timestamp, x, y, z) {
              document.getElementById('x2').textContent = x;
              document.getElementById('y2').textContent = y;
              document.getElementById('z2').textContent = z;
-             setTimestamp2(timestamp, 'freq2');
         }
-
-        function setTimestamp(timestamp, id) {
-            timestampArray.push(timestamp);
-            console.log(`${timestampArray.length}`);
-            if ((timestampArray.length - 60) === 0) {
-                var sum = 0;
-                for (var i = 0; i < timestampArray.length - 1; i++) {
-                    sum = sum + timestampArray[i + 1] - timestampArray[i];
-                }
-                var avg = sum / 59;
-                var feq = 1000 / avg;
-                document.getElementById(id).textContent = feq.toFixed(2) + " HZ";
-                timestampArray = [];
-            }
+        function log3(timestamp, arr) {
+            document.getElementById('x2').textContent = arr[0];
+            document.getElementById('y2').textContent = arr[1];
+            document.getElementById('z2').textContent = arr[2];
+            document.getElementById('w2').textContent = arr[3];
         }
-        function setTimestamp2(timestamp, id) {
-            timestampArray2.push(timestamp);
-            console.log(`${timestampArray2.length}`);
-            if ((timestampArray2.length - 60) === 0) {
-                var sum = 0;
-                for (var i = 0; i < timestampArray2.length - 1; i++) {
-                    sum = sum + timestampArray2[i + 1] - timestampArray2[i];
-                }
-                var avg = sum / 59;
-                var feq = 1000 / avg;
-                document.getElementById(id).textContent = feq.toFixed(2) + " HZ";
-                timestampArray2 = [];
-            }
-        }
-
-        var acl1;
-        function w3caccfreq1() {
-            delw3cacc();
-            navigator.permissions.query({ name: 'accelerometer' }).then(result => {
-                console.log(`[NEUJS] Permissions: ${result.state}`);
-                if (result.state === 'denied') {
-                    console.log('[NEU]Permission to use accelerometer sensor is denied.');
-                    return;
-                }
-
-                acl1 = new Accelerometer({frequency: 1});
-                let max_magnitude = 0;
-                acl1.addEventListener('activate', () => console.log('[NEU]Ready to measure.'));
-                acl1.addEventListener('error', error => console.log(`[NEU]Error: ${error.name}`));
-                acl1.addEventListener('reading', () => {
-                    log2(acl1.timestamp, acl1.x, acl1.y, acl1.z);
-                });
-                acl1.start();
+        function startAccelerometer() {
+            var sensor = new Accelerometer({frequency: 60});
+            sensor.addEventListener('activate', () => console.log('[NEU]Ready to measure.'));
+            sensor.addEventListener('error', error => console.log(`[NEU]Error: ${error.name}`));
+            sensor.addEventListener('reading', () => {
+                log2(sensor.timestamp, sensor.x, sensor.y, sensor.z);
             });
+            sensor.start();
         }
-
-        var acl5;
-        function w3caccfreq5() {
-            delw3cacc();
-            navigator.permissions.query({ name: 'accelerometer' }).then(result => {
-                if (result.state === 'denied') {
-                    console.log('[NEU]Permission to use accelerometer sensor is denied.');
-                    return;
-                }
-
-                acl5 = new Accelerometer({frequency: 5});
-                let max_magnitude = 0;
-                acl5.addEventListener('activate', () => console.log('[NEU]Ready to measure.'));
-                acl5.addEventListener('error', error => console.log(`[NEU]Error: ${error.name}`));
-                acl5.addEventListener('reading', () => {
-                    log2(acl5.timestamp, acl5.x, acl5.y, acl5.z);
-                });
-                acl5.start();
+        function startGravitySensor() {
+            var sensor = new GravitySensor({frequency: 60});
+            sensor.addEventListener('activate', () => console.log('[NEU]Ready to measure.'));
+            sensor.addEventListener('error', error => console.log(`[NEU]Error: ${error.name}`));
+            sensor.addEventListener('reading', () => {
+                log2(sensor.timestamp, sensor.x, sensor.y, sensor.z);
             });
+            sensor.start();
         }
-
-        var acl10;
-        function w3caccfreq10() {
-            delw3cacc();
-            navigator.permissions.query({ name: 'accelerometer' }).then(result => {
-                if (result.state === 'denied') {
-                    console.log('[NEU]Permission to use accelerometer sensor is denied.');
-                    return;
-                }
-
-                acl10 = new Accelerometer({frequency: 10});
-                let max_magnitude = 0;
-                acl10.addEventListener('activate', () => console.log('[NEU]Ready to measure.'));
-                acl10.addEventListener('error', error => console.log(`[NEU]Error: ${error.name}`));
-                acl10.addEventListener('reading', () => {
-                    log2(acl10.timestamp, acl10.x, acl10.y, acl10.z);
-                });
-                acl10.start();
+        function startLinearAccelerationSensor() {
+            var sensor = new LinearAccelerationSensor({frequency: 60});
+            sensor.addEventListener('activate', () => console.log('[NEU]Ready to measure.'));
+            sensor.addEventListener('error', error => console.log(`[NEU]Error: ${error.name}`));
+            sensor.addEventListener('reading', () => {
+                log2(sensor.timestamp, sensor.x, sensor.y, sensor.z);
             });
+            sensor.start();
         }
-
-        var acl100;
-        function w3caccfreq100() {
-            delw3cacc();
-            navigator.permissions.query({ name: 'accelerometer' }).then(result => {
-                if (result.state === 'denied') {
-                    console.log('[NEU]Permission to use accelerometer sensor is denied.');
-                    return;
-                }
-
-                acl100 = new Accelerometer({frequency: 100});
-                let max_magnitude = 0;
-                acl100.addEventListener('activate', () => console.log('[NEU]Ready to measure.'));
-                acl100.addEventListener('error', error => console.log(`[NEU]Error: ${error.name}`));
-                acl100.addEventListener('reading', () => {
-                    log2(acl100.timestamp, acl100.x, acl100.y, acl100.z);
-                });
-                acl100.start();
+        function startGyroscope() {
+            var sensor = new Gyroscope({frequency: 60});
+            sensor.addEventListener('activate', () => console.log('[NEU]Ready to measure.'));
+            sensor.addEventListener('error', error => console.log(`[NEU]Error: ${error.name}`));
+            sensor.addEventListener('reading', () => {
+                log2(sensor.timestamp, sensor.x, sensor.y, sensor.z);
             });
+            sensor.start();
         }
-
-        var acl300;
-        function w3caccfreq300() {
-            delw3cacc();
-            navigator.permissions.query({ name: 'accelerometer' }).then(result => {
-                if (result.state === 'denied') {
-                    console.log('[NEU]Permission to use accelerometer sensor is denied.');
-                    return;
-                }
-
-                acl300 = new Accelerometer({frequency: 300});
-                let max_magnitude = 0;
-                acl300.addEventListener('activate', () => console.log('[NEU]Ready to measure.'));
-                acl300.addEventListener('error', error => console.log(`[NEU]Error: ${error.name}`));
-                acl300.addEventListener('reading', () => {
-                    let magnitude = Math.hypot(acl300.x, acl300.y, acl300.z);
-                    console.log(`[NEUJS] UpdatePlatformSensorReading Start x,y,z: ${acl300.x}, ${acl300.y}, ${acl300.z} magnitude: ${magnitude} m/s2`);
-                    console.log(`[NEUJS] Timestamp: ${acl300.timestamp}`);
-                    log2(acl300.timestamp, acl300.x, acl300.y, acl300.z);
-                });
-                acl300.start();
+        function startAbsoluteOrientationSensor() {
+            var sensor = new AbsoluteOrientationSensor({frequency: 60});
+            sensor.addEventListener('activate', () => console.log('[NEU]Ready to measure.'));
+            sensor.addEventListener('error', error => console.log(`[NEU]Error: ${error.name}`));
+            sensor.addEventListener('reading', () => {
+                log3(sensor.timestamp, sensor.quaternion);
             });
-        }
-
-        function delw3cacc() {
-            navigator.permissions.query({ name: 'accelerometer' }).then(result => {
-                if (result.state === 'denied') {
-                    console.log('[NEU]Permission to use accelerometer sensor is denied.');
-                    return;
-                }
-                if(!!acl1){
-                    acl1.removeEventListener('activate', () => console.log('[NEU]Ready to remove.'));
-                    acl1.removeEventListener('error', () => console.log('[NEU]Ready to remove.'));
-                    acl1.removeEventListener('reading', () => console.log('[NEU]Ready to remove.'));
-                    acl1.stop();
-                    acl1 = null;
-                }
-                if(!!acl5){
-                    acl5.removeEventListener('activate', () => console.log('[NEU]Ready to remove.'));
-                    acl5.removeEventListener('error', () => console.log('[NEU]Ready to remove.'));
-                    acl5.removeEventListener('reading', () => console.log('[NEU]Ready to remove.'));
-                    acl5.stop();
-                    acl5 = null;
-                }
-                if(!!acl10){
-                    acl10.removeEventListener('activate', () => console.log('[NEU]Ready to remove.'));
-                    acl10.removeEventListener('error', () => console.log('[NEU]Ready to remove.'));
-                    acl10.removeEventListener('reading', () => console.log('[NEU]Ready to remove.'));
-                    acl10.stop();
-                    acl10 = null;
-                }
-                if(!!acl100){
-                    acl100.removeEventListener('activate', () => console.log('[NEU]Ready to remove.'));
-                    acl100.removeEventListener('error', () => console.log('[NEU]Ready to remove.'));
-                    acl100.removeEventListener('reading', () => console.log('[NEU]Ready to remove.'));
-                    acl100.stop();
-                    acl100 = null;
-                }
-                if(!!acl300){
-                    acl300.removeEventListener('activate', () => console.log('[NEU]Ready to remove.'));
-                    acl300.removeEventListener('error', () => console.log('[NEU]Ready to remove.'));
-                    acl300.removeEventListener('reading', () => console.log('[NEU]Ready to remove.'));
-                    acl300.stop();
-                    acl300 = null;
-                }
-                if(!!aclMax){
-                    aclMax.removeEventListener('activate', () => console.log('[NEU]Ready to remove.'));
-                    aclMax.removeEventListener('error', () => console.log('[NEU]Ready to remove.'));
-                    aclMax.removeEventListener('reading', () => console.log('[NEU]Ready to remove.'));
-                    aclMax.stop();
-                    aclMax = null;
-                }
-                timestampArray = [];
-                timestampArray2 = [];
-            });
-        }
-
-        function checkSensorsPermission() {
-            document.getElementById('log2').textContent = '检查权限';
-            Promise.all([
-                navigator.permissions.query({ name: 'accelerometer' })
-                ]).then(results => {
-                    const accelerometerPermission = results[0];
-                    const gyroscopePermission = results[1];
-                    document.getElementById('log2').textContent = '检查权限成功';
-                    console.log(`[NEU]加速度计权限: ${accelerometerPermission.state}`);
-                    //console.log(`[NEU]陀螺仪权限: ${gyroscopePermission.state}`);
-            }).catch(error => {
-                console.error('[NEU]权限查询失败:', error);
-                document.getElementById('log2').textContent = '检查权限失败' + error;
-            });
-        }
-
-        // ***************************Android***************************
-        function getAcc() {
-            if ('DeviceMotionEvent' in window) {
-                document.getElementById('log').textContent = '此浏览器支持DeviceMotionEvent';
-                window.addEventListener('devicemotion', handleMotionEvent, false);
-            } else {
-              document.getElementById('log').textContent = '此浏览器不支持DeviceMotionEvent';
-            }
-        }
-        function delAcc() {
-            if ('DeviceMotionEvent' in window) {
-              window.removeEventListener('devicemotion', handleMotionEvent, false);
-            } else {
-              console.log('此浏览器不支持DeviceMotionEvent');
-            }
-        }
-
-
-        function handleMotionEvent(event) {
-            let acceleration = event.acceleration;
-            if (acceleration) {
-              let { x, y, z } = acceleration;
-              log(event.timeStamp, x, y, z);
-            }
-        }
-
-        var aclMax;
-        function TestfrequencyIsCappedToAllowedMaximum() {
-            delw3cacc();
-            navigator.permissions.query({ name: 'accelerometer' }).then(result => {
-                if (result.state === 'denied') {
-                    console.log('[NEU]Permission to use accelerometer sensor is denied.');
-                    return;
-                }
-                aclMax = new Accelerometer({frequency: 560});
-                aclMax.addEventListener('activate', () => console.log('[NEU]Ready to measure.'));
-                aclMax.addEventListener('error', error => console.log(`[NEU]Error: ${error.name}`));
-                aclMax.addEventListener('reading', () => {
-                    log2(aclMax.timestamp, aclMax.x, aclMax.y, aclMax.z);
-                    // var freq = OriMax.getSamplingFrequency();
-                    // document.getElementById('maxfreq').textContent = '频率上限: ' + freq;
-                });
-                aclMax.start();
-                // var freq = aclMax.getSamplingFrequency();
-                // aclMax.stop();
-            });
+            sensor.start();
         }
     </script>
 </head>
@@ -296,19 +88,19 @@
 <div id="dcontent" class="dcontent">
     <h4>w3c</h4>
     <ul class="dlist">
-        <button type="button" onclick="w3caccfreq1()">w3c-freq1</button>
-        <button type="button" onclick="w3caccfreq5()">w3c-freq5</button>
-        <button type="button" onclick="w3caccfreq10()">w3c-freq10</button>
-        <button type="button" onclick="w3caccfreq100()">w3c-freq100</button>
-        <button type="button" onclick="w3caccfreq300()">w3c-freq300</button>
-        <button type="button" onclick="delw3cacc()">w3cstop</button>
-        <button type="button" onclick="checkSensorsPermission()">检查传感器权限w3c</button>
-<!--        <button type="button" onclick="TestfrequencyIsCappedToAllowedMaximum()">测试频率上限</button>-->
+        <button type="button" onclick="startAccelerometer()">Accelerometer</button>
     </ul>
-    <h4>加速度监听:</h4>
     <ul class="dlist">
-        <button type="button" onclick="getAcc()">获取设备当前加速度</button>
-        <button type="button" onclick="delAcc()">取消监听加速度</button>
+        <button type="button" onclick="startGravitySensor()">GravitySensor</button>
+    </ul>
+    <ul class="dlist">
+        <button type="button" onclick="startLinearAccelerationSensor()">LinearAccelerationSensor</button>
+    </ul>
+    <ul class="dlist">
+        <button type="button" onclick="startGyroscope()">Gyroscope</button>
+    </ul>
+    <ul class="dlist">
+        <button type="button" onclick="startAbsoluteOrientationSensor()">AbsoluteOrientationSensor</button>
     </ul>
 </div>
 <div id="output">
@@ -318,16 +110,6 @@
     <p>y: <span id="y2">0</span></p>
     <p>z: <span id="z2">0</span></p>
     <p>w: <span id="w2">0</span></p>
-    <h1 id = "freq2">0Hz</h1>
-<!--    <h1 id="maxfreq">频率上限:0Hz</h1>-->
-
-    <h1>加速度数据</h1>
-    <h2 id="log"></h2>
-    <p>x: <span id="x">0</span></p>
-    <p>y: <span id="y">0</span></p>
-    <p>z: <span id="z">0</span></p>
-    <h1 id = "freq">0hz</h1>
-
 </div>
 </body>
 
