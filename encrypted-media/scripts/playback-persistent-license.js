@@ -37,7 +37,9 @@ function runTest(config,qualifier) {
             config.messagehandler(event.messageType, event.message).then( function( response ) {
                 console.log("[NEU] onMessage update");
                 return _mediaKeySession.update(response)
-            }).catch(onFailure);
+            }).catch(onFailure).then(function() {
+                console.log("[NEU] onMessage messagehandler end");
+            });
         }
 
         function onEncrypted(event) {
@@ -80,6 +82,7 @@ function runTest(config,qualifier) {
             return testmediasource(config);
         }).then(function(source) {
             _mediaSource = source;
+            console.log("[NEU] createObjectURL");
             _video.src = URL.createObjectURL(_mediaSource);
             return source.done;
         }).then(function(){
