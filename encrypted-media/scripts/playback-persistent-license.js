@@ -18,27 +18,32 @@ function runTest(config,qualifier) {
             _mediaSource;
 
         function onFailure(error) {
+            console.log("[NEU] onFailure");
             forceTestFailureFromPromise(test, error);
         }
 
         function onMessage(event) {
+            console.log("[NEU] onMessage");
             assert_equals( event.target, _mediaKeySession );
             assert_true( event instanceof window.MediaKeyMessageEvent );
             assert_equals( event.type, 'message');
 
             assert_in_array( event.messageType, [ 'license-request', 'individualization-request' ] );
-
+            console.log("[NEU] onMessage type: " + event.messageType);
             config.messagehandler(event.messageType, event.message).then( function( response ) {
+                console.log("[NEU] onMessage update");
                 return _mediaKeySession.update(response)
             }).catch(onFailure);
         }
 
         function onEncrypted(event) {
+            console.log("[NEU] onEncrypted");
             assert_equals(event.target, _video);
             assert_true(event instanceof window.MediaEncryptedEvent);
             assert_equals(event.type, 'encrypted');
 
             waitForEventAndRunStep('message', _mediaKeySession, onMessage, test);
+            console.log("[NEU] generateRequest");
             _mediaKeySession.generateRequest(   config.initData ? config.initDataType : event.initDataType,
                                                 config.initData || event.initData ).catch(onFailure);
         }
@@ -55,13 +60,16 @@ function runTest(config,qualifier) {
             // EVENT(onTimeUpdate) logs.
             _video.addEventListener('timeupdate', onTimeupdate, true);
         }
-
+        console.log("[NEU] requestMediaKeySystemAccess");
         navigator.requestMediaKeySystemAccess(config.keysystem, [ configuration ]).then(function(access) {
+            console.log("[NEU] createMediaKeys");
             return access.createMediaKeys();
         }).then(function(mediaKeys) {
             _mediaKeys = mediaKeys;
+            console.log("[NEU] setMediaKeys");
             return _video.setMediaKeys(_mediaKeys);
         }).then(function() {
+            console.log("[NEU] createSession");
             _mediaKeySession = _mediaKeys.createSession( 'persistent-license' );
             waitForEventAndRunStep('encrypted', _video, onEncrypted, test);
             waitForEventAndRunStep('playing', _video, onPlaying, test);
@@ -71,7 +79,8 @@ function runTest(config,qualifier) {
             _video.src = URL.createObjectURL(_mediaSource);
             return source.done;
         }).then(function(){
-            _video.play();
+            console.log("[NEU] willplay");
+            // _video.play();
         }).catch(onFailure);
     }, testname);
 }
