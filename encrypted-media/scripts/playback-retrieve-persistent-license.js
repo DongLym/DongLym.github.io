@@ -23,6 +23,7 @@ function runTest(config,qualifier) {
         }
 
         function onEncrypted(event) {
+            console.log("[NEU][LOAD][1]onEncrypted");
             assert_equals(event.target, _video);
             assert_true(event instanceof window.MediaEncryptedEvent);
             assert_equals(event.type, 'encrypted');
@@ -31,10 +32,12 @@ function runTest(config,qualifier) {
             _mediaKeySession.generateRequest(   config.initData ? config.initDataType : event.initDataType,
                                                 config.initData || event.initData ).then( function() {
                 _sessionId = _mediaKeySession.sessionId;
+                console.log("[NEU][LOAD][1]onEncrypted generateRequest id: " + _sessionId);
             }).catch(onFailure);
         }
 
         function onMessage(event) {
+            console.log("[NEU][LOAD][1]onMessage");
             assert_equals(event.target, _mediaKeySession);
             assert_true(event instanceof window.MediaKeyMessageEvent);
             assert_equals(event.type, 'message');
@@ -42,6 +45,7 @@ function runTest(config,qualifier) {
             assert_in_array(event.messageType, ['license-request', 'individualization-request']);
 
             config.messagehandler(event.messageType, event.message).then(function(response) {
+                console.log("[NEU][LOAD][1]update");
                 return _mediaKeySession.update(response);
             }).catch(onFailure);
         }
@@ -90,14 +94,17 @@ function runTest(config,qualifier) {
 
             // Post the config and session id to the new window when it is ready
             win.onload = function() {
+                console.log("[NEU][LOAD][1]postMessage");
                 win.postMessage({config: config, sessionId: _sessionId}, '*');
             }
         }
-
+        console.log("[NEU][LOAD][1]requestMediaKeySystemAccess");
         navigator.requestMediaKeySystemAccess(config.keysystem, [configuration]).then(function(access) {
+            console.log("[NEU][LOAD][1]createMediaKeys");
             return access.createMediaKeys();
         }).then(function(mediaKeys) {
             _mediaKeys = mediaKeys;
+            console.log("[NEU][LOAD][1]setMediaKeys");
             return _video.setMediaKeys( mediaKeys );
         }).then(function() {
             _mediaKeySession = _mediaKeys.createSession('persistent-license');
