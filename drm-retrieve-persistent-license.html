@@ -52,16 +52,16 @@
                     .catch(onFailure);
             }
         }
-        console("[NEU][LOAD]requestMediaKeySystemAccess");
+        console.log("[NEU][LOAD]requestMediaKeySystemAccess");
         navigator.requestMediaKeySystemAccess(config.keysystem, [ configuration ] )
         .then(function(access) {
-            console("[NEU][LOAD]createMediaKeys");
+            console.log("[NEU][LOAD]createMediaKeys");
             return access.createMediaKeys();
         }).then(function(mediaKeys) {
-            console("[NEU][LOAD]setMediaKeys");
+            console.log("[NEU][LOAD]setMediaKeys");
             return config.video.setMediaKeys(mediaKeys);
         }).then(function() {
-            console("[NEU][LOAD]load");
+            console.log("[NEU][LOAD]load id: " + event.data.sessionId);
             config.video.addEventListener('timeupdate', onTimeupdate);
             _mediaKeySession = config.video.mediaKeys.createSession( 'persistent-license' );
             return _mediaKeySession.load(event.data.sessionId);
@@ -70,7 +70,7 @@
             return testmediasource(config);
         }).then(function(source) {
             config.video.src = URL.createObjectURL(source);
-            console("[NEU][LOAD]play");
+            console.log("[NEU][LOAD]play");
             // config.video.play();
         })
         .catch(onFailure);
