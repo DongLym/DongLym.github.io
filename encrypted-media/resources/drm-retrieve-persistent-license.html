@@ -52,7 +52,7 @@
                     .catch(onFailure);
             }
         }
-
+        console.log("[NEU][Load]requestMediaKeySystemAccess");
         navigator.requestMediaKeySystemAccess(config.keysystem, [ configuration ] )
         .then(function(access) {
             return access.createMediaKeys();
