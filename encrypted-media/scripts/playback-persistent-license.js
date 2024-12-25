@@ -15,6 +15,7 @@ function runTest(config,qualifier) {
         var _video = config.video,
             _mediaKeys,
             _mediaKeySession,
+            _sessionId,
             _mediaSource;
 
         function onFailure(error) {
@@ -30,6 +31,9 @@ function runTest(config,qualifier) {
 
             assert_in_array( event.messageType, [ 'license-request', 'individualization-request' ] );
             console.log("[NEU] onMessage type: " + event.messageType);
+
+            _sessionId = _mediaKeySession.sessionId;
+            console.log("[NEU] onMessage _sessionId: " + _sessionId); 
             config.messagehandler(event.messageType, event.message).then( function( response ) {
                 console.log("[NEU] onMessage update");
                 return _mediaKeySession.update(response)
