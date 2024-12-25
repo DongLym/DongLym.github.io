@@ -38,6 +38,9 @@ function runTest(config,qualifier) {
                 console.log("[NEU] onMessage update");
                 return _mediaKeySession.update(response)
             }).catch(onFailure).then(function() {
+                _mediaKeySession.load(_sessionId).then(function (success){
+                     console.log("[NEU] onMessage load result : " + success);
+                });
                 console.log("[NEU] onMessage messagehandler end");
             });
         }
