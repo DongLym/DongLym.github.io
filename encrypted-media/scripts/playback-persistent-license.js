@@ -15,6 +15,7 @@ function runTest(config,qualifier) {
         var _video = config.video,
             _mediaKeys,
             _mediaKeySession,
+            _mediaKeySession2,
             _sessionId,
             _mediaSource;
 
@@ -22,7 +23,15 @@ function runTest(config,qualifier) {
             console.log("[NEU] onFailure");
             forceTestFailureFromPromise(test, error);
         }
-
+        
+        function onComplete() {
+            //window.opener.postMessage({ testResult: assertions }, '*');
+            _mediaKeySession2 = _mediaKeys.createSession( 'persistent-license' );
+            _mediaKeySession2.load(_sessionId).then(function (success) {
+                console.log("[NEU] onMessage load result : " + success);
+            });
+        }
+        
         function onMessage(event) {
             console.log("[NEU] onMessage");
             assert_equals( event.target, _mediaKeySession );
@@ -38,9 +47,14 @@ function runTest(config,qualifier) {
                 console.log("[NEU] onMessage update");
                 return _mediaKeySession.update(response)
             }).then(function() {
-                _mediaKeySession.load(_sessionId).then(function (success) {
-                     console.log("[NEU] onMessage load result : " + success);
-                });
+                 _mediaKeySession.closed
+                    .then(onComplete)
+                    .catch(onFailure);
+                _mediaKeySession.close().catch(onFailure);
+                
+                //_mediaKeySession.load(_sessionId).then(function (success) {
+                //     console.log("[NEU] onMessage load result : " + success);
+                //});
                 console.log("[NEU] onMessage messagehandler end");
             }).catch(onFailure);
         }
