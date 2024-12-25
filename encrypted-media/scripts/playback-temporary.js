@@ -67,6 +67,7 @@ function runTest(config,qualifier) {
             return access.createMediaKeys();
         }).then(function(mediaKeys) {
             _mediaKeys = mediaKeys;
+            console.log("setMediaKeys start");
             return _video.setMediaKeys(_mediaKeys);
         }).then(function(){
             waitForEventAndRunStep('encrypted', _video, onEncrypted, test);
@@ -77,7 +78,9 @@ function runTest(config,qualifier) {
             _video.src = URL.createObjectURL(_mediaSource);
             return source.done;
         }).then(function(){
-            _video.play();
+
+            console.log("will play");
+            // _video.play();
         }).catch(onFailure);
     }, testname);
 }
