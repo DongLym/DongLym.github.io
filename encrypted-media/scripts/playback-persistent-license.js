@@ -15,6 +15,7 @@ function runTest(config,qualifier) {
         var _video = config.video,
             _mediaKeys,
             _mediaKeySession,
+            _mediaKeys2,
             _mediaKeySession2,
             _sessionId,
             _mediaSource;
@@ -24,12 +25,22 @@ function runTest(config,qualifier) {
             forceTestFailureFromPromise(test, error);
         }
         
-        function onComplete() {
-            //window.opener.postMessage({ testResult: assertions }, '*');
-            _mediaKeySession2 = _mediaKeys.createSession( 'persistent-license' );
-            _mediaKeySession2.load(_sessionId).then(function (success) {
-                console.log("[NEU] onMessage load result : " + success);
-            });
+        function loadSession() {
+            console.log("[NEU] loadSession");
+            navigator.requestMediaKeySystemAccess(config.keysystem, [ configuration ]).then(function(access) {
+                console.log("[NEU] createMediaKeys2");
+                return access.createMediaKeys();
+            }).then(function(mediaKeys) {
+                _mediaKeys2 = mediaKeys;
+                console.log("[NEU] setMediaKeys2");
+                return _video.setMediaKeys(_mediaKeys2);
+            }).then(function() {
+                console.log("[NEU] createSession2");
+                _mediaKeySession2 = _mediaKeys.createSession( 'persistent-license' );
+                _mediaKeySession2.load(_sessionId).then(function (success) {
+                     console.log("[NEU] onMessage load result : " + success);
+                });
+            })
         }
         
         function onMessage(event) {
@@ -51,10 +62,7 @@ function runTest(config,qualifier) {
                  //   .then(onComplete)
                  //   .catch(onFailure);
                 //_mediaKeySession.close().catch(onFailure);
-                _mediaKeySession2 = _mediaKeys.createSession( 'persistent-license' );
-                _mediaKeySession2.load(_sessionId).then(function (success) {
-                    console.log("[NEU] onMessage load result : " + success);
-                });
+                loadSession();
                 //_mediaKeySession.load(_sessionId).then(function (success) {
                 //     console.log("[NEU] onMessage load result : " + success);
                 //});
