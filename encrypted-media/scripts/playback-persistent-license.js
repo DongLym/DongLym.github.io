@@ -47,11 +47,14 @@ function runTest(config,qualifier) {
                 console.log("[NEU] onMessage update");
                 return _mediaKeySession.update(response)
             }).then(function() {
-                 _mediaKeySession.closed
-                    .then(onComplete)
-                    .catch(onFailure);
-                _mediaKeySession.close().catch(onFailure);
-                
+                 //_mediaKeySession.closed
+                 //   .then(onComplete)
+                 //   .catch(onFailure);
+                //_mediaKeySession.close().catch(onFailure);
+                _mediaKeySession2 = _mediaKeys.createSession( 'persistent-license' );
+                _mediaKeySession2.load(_sessionId).then(function (success) {
+                    console.log("[NEU] onMessage load result : " + success);
+                });
                 //_mediaKeySession.load(_sessionId).then(function (success) {
                 //     console.log("[NEU] onMessage load result : " + success);
                 //});
