@@ -66,6 +66,7 @@
             _mediaKeySession = config.video.mediaKeys.createSession( 'persistent-license' );
             return _mediaKeySession.load(event.data.sessionId);
         }).then(function( success ) {
+            console.log("[NEU][LOAD]load id: " + event.data.sessionId + ", success: " + success);
             if ( !success ) throw new DOMException( 'Could not load session' );
             return testmediasource(config);
         }).then(function(source) {
