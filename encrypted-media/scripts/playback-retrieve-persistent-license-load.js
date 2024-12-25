@@ -108,15 +108,16 @@ function runTest(config,qualifier) {
             return _video.setMediaKeys( mediaKeys );
         }).then(function() {
             _mediaKeySession = _mediaKeys.createSession('persistent-license');
-            waitForEventAndRunStep('encrypted', _video, onEncrypted, test);
-            waitForEventAndRunStep('playing', _video, onPlaying, test);
+            _sessionId = "";
+            return _mediaKeySession.load(_sessionId);
+        }).then(function( success ) {
+            console.log("[NEU][LOAD]load id: " + event.data.sessionId + ", success: " + success);
+            if ( !success ) throw new DOMException( 'Could not load session' );
             return testmediasource(config);
         }).then(function(source) {
-            _mediaSource = source;
-            _video.src = URL.createObjectURL(_mediaSource);
-            return source.done;
-        }).then(function(){
-            _video.play();
+            config.video.src = URL.createObjectURL(source);
+            console.log("[NEU][LOAD]play");
+            // config.video.play();
         }).catch(onFailure);
     }, testname);
 }
