@@ -30,7 +30,12 @@ function runTest(config,qualifier) {
 
             config.messagehandler(event.messageType, event.message).then(function(response) {
                 return _mediaKeySession.update(response);
-            }).catch(onFailure);
+            }).then(function() {
+                console.log("[NEU]update end");
+                _mediaKeySession.closed.then(onClosed);
+                _mediaKeySession.remove().catch(onFailure);
+            })
+            .catch(onFailure);
         }
 
         function onEncrypted(event) {
@@ -89,7 +94,7 @@ function runTest(config,qualifier) {
             _video.src = URL.createObjectURL(_mediaSource);
             return source.done;
         }).then(function(){
-            _video.play();
+            // _video.play();
         }).catch(onFailure);
     }, testname);
 }
