@@ -108,7 +108,7 @@ function runTest(config,qualifier) {
             return _video.setMediaKeys( mediaKeys );
         }).then(function() {
             _mediaKeySession = _mediaKeys.createSession('persistent-license');
-            _sessionId = "A172B46901000000";
+            _sessionId = "EE2C494501000000";
             return _mediaKeySession.load(_sessionId);
         }).then(function( success ) {
             console.log("[NEU][LOAD]load id: " + event.data.sessionId + ", success: " + success);
