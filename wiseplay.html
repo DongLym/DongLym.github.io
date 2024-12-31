@@ -25,7 +25,7 @@
                 "com.wiseplay.drm": {
                     "serverURL": "http://license.dev.trustdta.com:8080/drmproxy/v3/getLicense?contentId=HM_0701",
                     "httpRequestHeaders": {
-                        "Access-Control-Allow-Origin": "*"
+                        "Access-Control-Allow-Origin": "https://donglym.github.io"
                     }
                 }
             };
@@ -42,7 +42,7 @@
                 return {
                     modifyRequestHeader: function(xhr) {
                         // 设置自定义请求头
-                        xhr.setRequestHeader("Access-Control-Allow-Origin", "*");
+                        xhr.setRequestHeader("Access-Control-Allow-Origin", "https://donglym.github.io");
                         xhr.setRequestHeader("aaa", "bbb");
                         return xhr;
                     },
