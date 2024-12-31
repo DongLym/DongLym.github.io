@@ -37,11 +37,21 @@
             audio = document.querySelector("audio");
             
             player = dashjs.MediaPlayer().create();
-            player.setXHRSettings({
-                headers: {
-                    "Access-Control-Allow-Origin": "*"
-                }
-            });
+
+            player.extend("RequestModifier", function() {
+                return {
+                    modifyRequestHeader: function(xhr) {
+                        // 设置自定义请求头
+                        xhr.setRequestHeader("Access-Control-Allow-Origin": "*");
+                        return xhr;
+                    },
+                    modifyRequestURL: function(url) {
+                        // 可以在这里修改请求 URL
+                        return url;
+                    }
+                };
+            }, true);
+            
             player.initialize(audio, url, true);
             player.setProtectionData(protData);
         }
