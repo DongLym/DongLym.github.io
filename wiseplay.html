@@ -35,7 +35,13 @@
                 url = "https://hwposter-inland.hwcloudtest.cn/rem/next_001/cbc1.mpd";
 
             audio = document.querySelector("audio");
+            
             player = dashjs.MediaPlayer().create();
+            player.setXHRSettings({
+                headers: {
+                    "Access-Control-Allow-Origin": "*"
+                }
+            });
             player.initialize(audio, url, true);
             player.setProtectionData(protData);
         }
