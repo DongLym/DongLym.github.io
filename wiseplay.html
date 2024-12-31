@@ -43,6 +43,7 @@
                     modifyRequestHeader: function(xhr) {
                         // 设置自定义请求头
                         xhr.setRequestHeader("Access-Control-Allow-Origin", "*");
+                        xhr.setRequestHeader("aaa", "bbb");
                         return xhr;
                     },
                     modifyRequestURL: function(url) {
