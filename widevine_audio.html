@@ -23,12 +23,12 @@
             // http://license.dev.trustdta.com:8080/drmproxy/v3/getLicense?contentId=HM_0701
             var protData = {
                 "com.widevine.alpha": {
-                    "serverURL": "http://license.dev.trustdta.com:8080/drmproxy/v3/getLicense?contentId=R1j36c65kUGeWN5&useDrmProxy=1"
+                    "serverURL": "https://proxy.uat.widevine.com/proxy?video_id=2015_tears&provider=widevine_test"
                 }
             };
             var video,
                 player,
-                url = "https://hwposter-inland.hwcloudtest.cn/rem/ruanjie/h265_2560x1440_4.9m_30fp_cenc/dash.mpd";
+                url = "https://donglym.github.io/tears_uhd.mpd";
 
             video = document.querySelector("video");
             player = dashjs.MediaPlayer().create();
