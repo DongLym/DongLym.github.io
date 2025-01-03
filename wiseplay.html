@@ -23,7 +23,7 @@
             // http://license.dev.trustdta.com:8080/drmproxy/v3/getLicense?contentId=HM_0701
             var protData = {
                 "com.wiseplay.drm": {
-                    "serverURL": "http://license.dev.trustdta.com:8080/drmproxy/v3/getLicense?contentId=HM_0701",
+                    "serverURL": "https://proxy.uat.widevine.com/proxy?video_id=2015_tears&provider=widevine_test",
                     "httpRequestHeaders": {
                         "Access-Control-Allow-Origin": "https://donglym.github.io"
                     }
@@ -32,7 +32,7 @@
 
             var audio,
                 player,
-                url = "https://hwposter-inland.hwcloudtest.cn/rem/next_001/cbc1.mpd";
+                url = "https://donglym.github.io/tears_uhd.mpd";
 
             audio = document.querySelector("audio");
             
