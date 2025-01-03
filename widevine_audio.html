@@ -30,9 +30,9 @@
                 player,
                 url = "https://donglym.github.io/tears_uhd.mpd";
 
-            video = document.querySelector("video");
+            audio = document.querySelector("audio");
             player = dashjs.MediaPlayer().create();
-            player.initialize(video, url, true);
+            player.initialize(audio, url, true);
             player.setProtectionData(protData);
         }
 
