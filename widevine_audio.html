@@ -26,13 +26,13 @@
                     "serverURL": "https://proxy.uat.widevine.com/proxy?video_id=2015_tears&provider=widevine_test"
                 }
             };
-            var audio,
+            var video,
                 player,
                 url = "https://donglym.github.io/tears_uhd.mpd";
 
-            audio = document.querySelector("audio");
+            video = document.querySelector("video");
             player = dashjs.MediaPlayer().create();
-            player.initialize(audio, url, true);
+            player.initialize(video, url, true);
             player.setProtectionData(protData);
         }
 
