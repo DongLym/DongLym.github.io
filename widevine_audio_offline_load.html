@@ -19,6 +19,7 @@
 
     <script class="code">
         var savedSessionToken;
+	var player;
         function init() {
             var protData = {
                 "com.widevine.alpha": {
@@ -27,7 +28,6 @@
                 }
             };
             var video,
-                player,
                 url = "https://donglym.github.io/tears_uhd.mpd";
 
             video = document.querySelector("#vid1");
@@ -42,6 +42,15 @@
                 // 你可以在这里保存 session token 以便后续使用
             });
         }
+	function close() {
+            if (savedSessionToken) {
+                var protectionController = player.getProtectionController();
+                protectionController.closeKeySession(savedSessionToken);
+                console.log("Key session close.");
+            } else {
+                console.log("No session token available.");
+            }
+        }
         function load() {
             var protData = {
                 "com.widevine.alpha": {
@@ -51,13 +60,13 @@
                 }
             };
             var video,
-                player,
+                player2,
                 url = "https://donglym.github.io/tears_uhd.mpd";
 
             video = document.querySelector("#vid2");
-            player = dashjs.MediaPlayer().create();
-            player.initialize(video, url, false);
-            player.setProtectionData(protData);
+            player2 = dashjs.MediaPlayer().create();
+            player2.initialize(video, url, false);
+            player2.setProtectionData(protData);
         }
         function check() {
             if (location.protocol === 'http:' && location.hostname !== 'localhost') {
@@ -72,6 +81,7 @@
 </head>
 <body>
 <ul class="dlist">
+	<li><button type="button" onclick="close()">Close Session</button></li>
         <li><button type="button" onclick="load()">Load Session</button></li>
 </ul>
 <main>
