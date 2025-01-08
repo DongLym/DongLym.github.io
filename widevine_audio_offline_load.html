@@ -19,8 +19,6 @@
 
     <script class="code">
         function init() {
-            // https://hwposter-inland.hwcloudtest.cn/rem/next_001/cbc1.mpd
-            // http://license.dev.trustdta.com:8080/drmproxy/v3/getLicense?contentId=HM_0701
             var protData = {
                 "com.widevine.alpha": {
                     "serverURL": "https://proxy.uat.widevine.com/proxy?video_id=2015_tears&provider=widevine_test",
@@ -32,7 +30,7 @@
                 player,
                 url = "https://donglym.github.io/tears_uhd.mpd";
 
-            video = document.querySelector("video");
+            video = document.querySelector("#vid1");
             player = dashjs.MediaPlayer().create();
             player.initialize(video, url, false);
             player.setProtectionData(protData);
@@ -76,7 +74,8 @@
                 </div>
             </div>
             <div class="col-md-8">
-                <video controls="true"></video>
+		    <video controls="true" id="vid1" width="640" height="480"></video>
+		    <video controls="true" id="vid2" width="640" height="480"></video>
             </div>
         </div>
         <div class="row">
