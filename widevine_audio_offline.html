@@ -19,6 +19,7 @@
 
     <script class="code">
         var player;
+        var savedSessionToken;
         function init() {
             // https://hwposter-inland.hwcloudtest.cn/rem/next_001/cbc1.mpd
             // http://license.dev.trustdta.com:8080/drmproxy/v3/getLicense?contentId=HM_0701
@@ -38,13 +39,19 @@
 
             player.on(dashjs.MediaPlayer.events.KEY_SESSION_CREATED, function(e) {
                 console.log("e:", e);  
-                var sessionToken = e.data.getSessionId();
-                console.log("Session Token:", sessionToken);            
+                savedSessionToken = e.data.getSessionId();
+                console.log("Session Token:", savedSessionToken);            
                 // 你可以在这里保存 session token 以便后续使用
             });
         }
-        function stop() {
-            player.stop();
+        function removeSession() {
+            if (savedSessionToken) {
+                var protectionController = player.getProtectionController();
+                protectionController.removeKeySession(savedSessionToken);
+                console.log("Key session removed.");
+            } else {
+                console.log("No session token available.");
+            }
         }
         function check() {
             if (location.protocol === 'http:' && location.hostname !== 'localhost') {
@@ -59,7 +66,7 @@
 </head>
 <body>
     <ul class="dlist">
-        <li><button type="button" onclick="stop()">Remove Session</button></li>
+        <li><button type="button" onclick="removeSession()">Remove Session</button></li>
     </ul>
 <main>
     <div class="container py-4">
