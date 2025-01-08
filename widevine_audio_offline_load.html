@@ -43,6 +43,7 @@
             });
         }
 	function close() {
+	    console.log("close.");
             if (savedSessionToken) {
                 var protectionController = player.getProtectionController();
                 protectionController.closeKeySession(savedSessionToken);
@@ -52,6 +53,7 @@
             }
         }
         function load() {
+	    console.log("load.");
             var protData = {
                 "com.widevine.alpha": {
                     "serverURL": "https://proxy.uat.widevine.com/proxy?video_id=2015_tears&provider=widevine_test",
