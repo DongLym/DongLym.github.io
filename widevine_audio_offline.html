@@ -37,6 +37,7 @@
             player.setProtectionData(protData);
 
             player.on(dashjs.MediaPlayer.events.KEY_SESSION_CREATED, function(e) {
+                console.log("e:", e);  
                 var sessionToken = e.data.sessionToken;
                 console.log("Session Token:", sessionToken);            
                 // 你可以在这里保存 session token 以便后续使用
