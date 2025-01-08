@@ -18,6 +18,7 @@
     </style>
 
     <script class="code">
+        var savedSessionToken;
         function init() {
             var protData = {
                 "com.widevine.alpha": {
@@ -33,6 +34,13 @@
             player = dashjs.MediaPlayer().create();
             player.initialize(video, url, false);
             player.setProtectionData(protData);
+
+	    player.on(dashjs.MediaPlayer.events.KEY_SESSION_CREATED, function(e) {
+                console.log("e:", e);  
+                savedSessionToken = e.data.getSessionId();
+                console.log("Session Token:", savedSessionToken);            
+                // 你可以在这里保存 session token 以便后续使用
+            });
         }
         function load() {
             var protData = {
