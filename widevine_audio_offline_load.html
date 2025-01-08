@@ -42,16 +42,7 @@
                 // 你可以在这里保存 session token 以便后续使用
             });
         }
-	function close() {
-	    console.log("close.");
-            if (savedSessionToken) {
-                var protectionController = player.getProtectionController();
-                protectionController.closeKeySession(savedSessionToken);
-                console.log("Key session close.");
-            } else {
-                console.log("No session token available.");
-            }
-        }
+
         function load() {
 	    console.log("load.");
             var protData = {
@@ -70,6 +61,18 @@
             player2.initialize(video, url, false);
             player2.setProtectionData(protData);
         }
+
+	function close11aa() {
+	    console.log("close.");
+            if (savedSessionToken) {
+                var protectionController = player.getProtectionController();
+                protectionController.closeKeySession(savedSessionToken);
+                console.log("Key session close.");
+            } else {
+                console.log("No session token available.");
+            }
+        }
+
         function check() {
             if (location.protocol === 'http:' && location.hostname !== 'localhost') {
                 var out = 'This page has been loaded under http. This might result in the EME APIs not being available to the player and any DRM-protected content will fail to play. ' +
@@ -83,8 +86,9 @@
 </head>
 <body>
 <ul class="dlist">
-	<li><button type="button" onclick="close()">Close</button></li>
+	<li><button type="button" onclick="close11aa()">Close</button></li>
         <li><button type="button" onclick="load()">Load</button></li>
+	<li><button type="button" onclick="close11aa()">Close</button></li>
 </ul>
 <main>
     <div class="container py-4">
