@@ -22,8 +22,7 @@
             var protData = {
                 "com.widevine.alpha": {
                     "serverURL": "https://proxy.uat.widevine.com/proxy?video_id=2015_tears&provider=widevine_test",
-					"sessionType": "persistent-license",
-					"sessionId": "57671D473FACDC0ABC3A08F50004D7D8"
+		    "sessionType": "persistent-license"
                 }
             };
             var video,
@@ -35,7 +34,23 @@
             player.initialize(video, url, false);
             player.setProtectionData(protData);
         }
+        function load() {
+            var protData = {
+                "com.widevine.alpha": {
+                    "serverURL": "https://proxy.uat.widevine.com/proxy?video_id=2015_tears&provider=widevine_test",
+		    "sessionType": "persistent-license",
+		    "sessionId": "57671D473FACDC0ABC3A08F50004D7D8"
+                }
+            };
+            var video,
+                player,
+                url = "https://donglym.github.io/tears_uhd.mpd";
 
+            video = document.querySelector("#vid2");
+            player = dashjs.MediaPlayer().create();
+            player.initialize(video, url, false);
+            player.setProtectionData(protData);
+        }
         function check() {
             if (location.protocol === 'http:' && location.hostname !== 'localhost') {
                 var out = 'This page has been loaded under http. This might result in the EME APIs not being available to the player and any DRM-protected content will fail to play. ' +
