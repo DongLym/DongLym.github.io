@@ -45,13 +45,29 @@
             });
         }
         function removeSession() {
-            if (savedSessionToken) {
-                var protectionController = player.getProtectionController();
-                protectionController.removeKeySession(savedSessionToken);
-                console.log("Key session removed.");
+            // 获取 DRM 会话
+            var drmInfo = player.getProtectionController().getKeySystems();
+            var session = drmInfo[0].sessions[0];
+            
+            // 确保 session 对象存在
+            if (session) {
+                // 调用 remove 方法
+                session.remove().then(function() {
+                    console.log("Session removed successfully.");
+                }).catch(function(error) {
+                    console.error("Failed to remove session:", error);
+                });
             } else {
-                console.log("No session token available.");
+                console.error("Session not found.");
             }
+                        
+            //if (savedSessionToken) {
+            //    var protectionController = player.getProtectionController();
+            //    protectionController.removeKeySession(savedSessionToken);
+            //    console.log("Key session removed.");
+            //} else {
+            //    console.log("No session token available.");
+            //}
         }
         function check() {
             if (location.protocol === 'http:' && location.hostname !== 'localhost') {
