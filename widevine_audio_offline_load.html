@@ -37,8 +37,8 @@
 
 	    player.on(dashjs.MediaPlayer.events.KEY_SESSION_CREATED, function(e) {
                 console.log("e:", e);  
-                savedSessionToken = e.data.getSessionId();
-                console.log("Session Token:", savedSessionToken);            
+                savedSessionToken = e.data;
+                console.log("Session Token:", );            
                 // 你可以在这里保存 session token 以便后续使用
             });
         }
@@ -49,7 +49,7 @@
                 "com.widevine.alpha": {
                     "serverURL": "https://proxy.uat.widevine.com/proxy?video_id=2015_tears&provider=widevine_test",
 		    "sessionType": "persistent-license",
-		    "sessionId": savedSessionToken
+		    "sessionId": savedSessionToken.getSessionId()
                 }
             };
             var video,
