@@ -18,6 +18,8 @@
     </style>
 
     <script class="code">
+        var savedSessionToken;
+	    var player;
         function init() {
             // https://hwposter-inland.hwcloudtest.cn/rem/next_001/cbc1.mpd
             // http://license.dev.trustdta.com:8080/drmproxy/v3/getLicense?contentId=HM_0701
@@ -27,13 +29,23 @@
                 }
             };
             var video,
-                player,
                 url = "https://donglym.github.io/tears_uhd.mpd";
 
             video = document.querySelector("video");
             player = dashjs.MediaPlayer().create();
             player.initialize(video, url, false);
             player.setProtectionData(protData);
+        }
+
+        function close11aa() {
+	        console.log("close.");
+            if (savedSessionToken) {
+                var protectionController = player.getProtectionController();
+                protectionController.closeKeySession(savedSessionToken);
+                console.log("Key session close.");
+            } else {
+                console.log("No session token available.");
+            }
         }
 
         function check() {
@@ -48,7 +60,9 @@
     </script>
 </head>
 <body>
-
+<ul class="dlist">
+	<li><button type="button" onclick="close11aa()">Close</button></li>
+</ul>
 <main>
     <div class="container py-4">
         <header class="pb-3 mb-4 border-bottom">
