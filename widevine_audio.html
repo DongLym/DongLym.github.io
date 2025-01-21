@@ -35,6 +35,13 @@
             player = dashjs.MediaPlayer().create();
             player.initialize(video, url, false);
             player.setProtectionData(protData);
+
+	    player.on(dashjs.MediaPlayer.events.KEY_SESSION_CREATED, function(e) {
+                console.log("e:", e);  
+                savedSessionToken = e.data;
+                console.log("Session Token:", );            
+                // 你可以在这里保存 session token 以便后续使用
+            });
         }
 
         function close11aa() {
