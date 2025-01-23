@@ -21,20 +21,12 @@
         var savedSessionToken;
 	    var player;
         function init() {
-            // https://hwposter-inland.hwcloudtest.cn/rem/next_001/cbc1.mpd
-            // http://license.dev.trustdta.com:8080/drmproxy/v3/getLicense?contentId=HM_0701
-            var protData = {
-                "com.widevine.alpha": {
-                    "serverURL": "https://proxy.uat.widevine.com/proxy?video_id=2015_tears&provider=widevine_test"
-                }
-            };
             var video,
-                url = "https://donglym.github.io/tears_uhd.mpd";
+                url = "https://donglym.github.io/encrypted-media/content/audio_aac-lc_128k_2keys_2sess.mp4";
 
             video = document.querySelector("video");
             player = dashjs.MediaPlayer().create();
             player.initialize(video, url, false);
-            player.setProtectionData(protData);
 
 	    player.on(dashjs.MediaPlayer.events.KEY_SESSION_CREATED, function(e) {
                 console.log("e:", e);  
