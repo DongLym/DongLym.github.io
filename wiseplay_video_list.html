@@ -21,6 +21,11 @@
         function init() {
             var protData = {
                 "com.wiseplay.drm": {
+                    "serverURL": "http://license.dev.trustdta.com:8080/drmproxy/v3/getLicense?contentId=R1j36c65kUGeWN5&useDrmProxy=1"
+                }
+            };
+	    var protDataHW = {
+                "com.wiseplay.drm": {
                     "serverURL": "http://license.dev.trustdta.com:8080/drmproxy/v3/getLicense?contentId=R1j36c65kUGeWN5&useDrmProxy=1",
                     "videoRobustness": "HW_SECURE_DECODE"
                 }
@@ -103,6 +108,10 @@
                 <video controls="true"></video>
             </div>
 			<div>
+				<div>
+					<button id="hardSecure">硬件解密</button>
+					<button id="softSecure">软件解密</button>
+				</div>
 				<div>
 					<button id="prevButton">上一曲</button>
 					<button id="nextButton">下一曲</button>
