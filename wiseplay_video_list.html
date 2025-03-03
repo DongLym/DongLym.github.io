@@ -49,7 +49,7 @@
 				'https://hwposter-inland.hwcloudtest.cn/rem/ruanjie/h265_2560x1440_4.9m_30fp_cenc/dash.mpd'
 			];
 			let currentTrackIndex = 0;
-			let useHard = 0;
+			let useHard = 1;
             		player = dashjs.MediaPlayer().create();
 			player.initialize(video, tracks[currentTrackIndex], true);
             		player.setProtectionData(protData);
