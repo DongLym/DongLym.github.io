@@ -52,7 +52,11 @@
 			let useHard = 1;
             		player = dashjs.MediaPlayer().create();
 			player.initialize(video, tracks[currentTrackIndex], true);
-            		player.setProtectionData(protData);
+			if (useHard > 0) {
+				player.setProtectionData(protDataHW);
+			} else {
+				player.setProtectionData(protData);
+			}
 			
 			prevButton.addEventListener('click', function () {
 				if (currentTrackIndex > 0) {
