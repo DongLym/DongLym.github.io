@@ -31,8 +31,7 @@
         const video = document.getElementById('video');
 
         // 创建Shaka Player实例
-        const player = new shaka.Player();
-        await player.attach(video);
+        const player = new shaka.Player(video);
 
         // 配置DRM
         player.configure({
