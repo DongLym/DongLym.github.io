@@ -48,10 +48,11 @@
         });
 
         // 加载流媒体
+        console.log('加载流媒体');
         player.load(manifestUri).then(() => {
             console.log('流媒体加载成功');
         }).catch((error) => {
-            console.error('加载失败:', error);
+            // console.error('加载失败:', error);
             console.error('加载失败:', JSON.stringify(error));
         });
     }
