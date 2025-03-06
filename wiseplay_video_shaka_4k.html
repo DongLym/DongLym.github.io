@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Shaka Player WisePlay 示例</title>
+    <script src="./lib/shaka-player.compiled.js"></script>
+    <style>
+        #videoContainer {
+            width: 800px;
+            margin: 20px auto;
+        }
+        #video {
+            width: 100%;
+            box-shadow: 0 0 10px rgba(0,0,0,0.2);
+        }
+    </style>
+</head>
+<body>
+<div id="videoContainer">
+    <h1>WisePlay Dash cenc 加密流</h1>
+    <video id="video" autoplay controls crossorigin="anonymous"></video>
+</div>
+
+<script>
+    // 初始化播放器（需在用户交互后触发）
+    function initPlayer() {
+        const manifestUri = 'https://hwposter-inland.hwcloudtest.cn/rem/LaunchEvent/h264_3840x2160_8.4m_30fp_cenc/dash.mpd';
+        const licenseServer = 'http://license.dev.trustdta.com:8080/drmproxy/v3/getLicense?contentId=sfasRAeuyHJFSJA';
+
+        // 获取视频元素
+        const video = document.getElementById('video');
+
+        // 创建Shaka Player实例
+        const player = new shaka.Player(video);
+
+        // 配置DRM
+        player.configure({
+            drm: {
+                servers: {
+                    'com.wiseplay.drm': licenseServer
+                }
+            }
+        });
+
+        // 错误处理
+        player.addEventListener('error', (event) => {
+            console.error('播放错误:', event.detail);
+        });
+
+        // 加载流媒体
+        player.load(manifestUri).then(() => {
+            console.log('流媒体加载成功');
+        }).catch((error) => {
+            console.error('加载失败:', error);
+        });
+    }
+
+    // 用户交互后初始化（浏览器安全要求）
+    document.addEventListener('DOMContentLoaded', () => {
+        const initButton = document.createElement('button');
+        initButton.textContent = '点击初始化播放器';
+        initButton.style.display = 'block';
+        initButton.style.margin = '20px auto';
+        initButton.onclick = () => {
+            initPlayer();
+            initButton.remove();
+        };
+        document.body.appendChild(initButton);
+    });
+</script>
+</body>
+</html>
