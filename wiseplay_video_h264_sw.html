@@ -89,13 +89,13 @@
 
             player = dashjs.MediaPlayer().create();
             player.initialize(video, tracks[currentTrackIndex], true);
-            player.setProtectionData(protData[currentTrackIndex]);            
+            player.setProtectionData(protDatas[currentTrackIndex]);            
             
             prevButton.addEventListener('click', function () {
                 if (currentTrackIndex > 0) {
                     currentTrackIndex--;
                     player.attachSource(tracks[currentTrackIndex]);
-                    player.setProtectionData(protData[currentTrackIndex]);
+                    player.setProtectionData(protDatas[currentTrackIndex]);
                 }
             });
 
@@ -103,7 +103,7 @@
                 if (currentTrackIndex < tracks.length - 1) {
                     currentTrackIndex++;
                     player.attachSource(tracks[currentTrackIndex]);
-                    player.setProtectionData(protData[currentTrackIndex]);    
+                    player.setProtectionData(protDatas[currentTrackIndex]);    
                 }
             });
         }
