@@ -19,17 +19,53 @@
 
     <script class="code">
         function init() {
-            var protData = {
-                "com.wiseplay.drm": {
-                    "serverURL": "http://license.dev.trustdta.com:8080/drmproxy/v3/getLicense?contentId=R1j36c65kUGeWN5&useDrmProxy=1"
-                }
-            };
-	    var protDataHW = {
-                "com.wiseplay.drm": {
-                    "serverURL": "http://license.dev.trustdta.com:8080/drmproxy/v3/getLicense?contentId=R1j36c65kUGeWN5&useDrmProxy=1",
-                    "videoRobustness": "HW_SECURE_DECODE"
-                }
-            };
+            var protDatas = [				
+				{
+					"com.wiseplay.drm": {
+						"serverURL": "http://license.dev.trustdta.com:8080/drmproxy/v3/getLicense?contentId=9E5cd3GUxC4BAEB&useDrmProxy=1"
+					}
+				},
+				{
+					"com.wiseplay.drm": {
+						"serverURL": "http://license.dev.trustdta.com:8080/drmproxy/v3/getLicense?contentId=sfasRuanJieFSJA&useDrmProxy=1"
+					}
+				},
+				{
+					"com.wiseplay.drm": {
+						"serverURL": "http://license.dev.trustdta.com:8080/drmproxy/v3/getLicense?contentId=KFW55Oyx3wEzb9r&useDrmProxy=1"
+					}
+				},
+				{
+					"com.wiseplay.drm": {
+						"serverURL": "http://license.dev.trustdta.com:8080/drmproxy/v3/getLicense?contentId=f57kbjTu1o178LY&useDrmProxy=1"
+					}
+				},
+				{
+					"com.wiseplay.drm": {
+						"serverURL": "http://license.dev.trustdta.com:8080/drmproxy/v3/getLicense?contentId=5cKGJ70rm2y7z2V&useDrmProxy=1"
+					}
+				},
+				{
+					"com.wiseplay.drm": {
+						"serverURL": "http://license.dev.trustdta.com:8080/drmproxy/v3/getLicense?contentId=s70gpa39DIKgHd9&useDrmProxy=1"
+					}
+				},
+				{
+					"com.wiseplay.drm": {
+						"serverURL": "http://license.dev.trustdta.com:8080/drmproxy/v3/getLicense?contentId=T3dFwj5937QJKHY&useDrmProxy=1"
+					}
+				},
+				{
+					"com.wiseplay.drm": {
+						"serverURL": "http://license.dev.trustdta.com:8080/drmproxy/v3/getLicense?contentId=uCRSolbPuu9F2WC&useDrmProxy=1"
+					}
+				},
+				{
+					"com.wiseplay.drm": {
+						"serverURL": "http://license.dev.trustdta.com:8080/drmproxy/v3/getLicense?contentId=eSxzBQRMG0rXCku&useDrmProxy=1"
+					}
+				}
+			];
             var video,
                 player,
                 url = "https://hwposter-inland.hwcloudtest.cn/rem/ruanjie/h265_2560x1440_4.9m_30fp_cenc/dash.mpd";
@@ -38,35 +74,28 @@
 			const prevButton = document.getElementById('prevButton');
 			const nextButton = document.getElementById('nextButton');
 		
-			const hardSecure = document.getElementById('hardSecure');
-			const softSecure = document.getElementById('softSecure');
-		
 			const tracks = [
-				'https://hwposter-inland.hwcloudtest.cn/rem/ruanjie/h265_2560x1440_4.9m_30fp_cenc/dash.mpd',
-				'https://hwposter-inland.hwcloudtest.cn/rem/ruanjie/h265_2560x1440_4.9m_30fp_cenc/dash.mpd',
-				'https://hwposter-inland.hwcloudtest.cn/rem/ruanjie/h265_2560x1440_4.9m_30fp_cenc/dash.mpd',
-				'https://hwposter-inland.hwcloudtest.cn/rem/ruanjie/h265_2560x1440_4.9m_30fp_cenc/dash.mpd',
-				'https://hwposter-inland.hwcloudtest.cn/rem/ruanjie/h265_2560x1440_4.9m_30fp_cenc/dash.mpd'
+				'https://hwposter-inland.hwcloudtest.cn/rem/ruanjie/H264dfbl/duoship_dash.mpd',
+				'https://hwposter-inland.hwcloudtest.cn/rem/LaunchEvent/DASH_MP4_H264_SD&HD/dash.mpd",
+				'https://hwposter-inland.hwcloudtest.cn/rem/ruanjie/h264_480x270_0.2m_30fp_cenc/dash.mpd",
+				'https://hwposter-inland.hwcloudtest.cn/rem/ruanjie/h264_640x480_0.5m_30fp_cenc/dash.mpd",
+				'https://hwposter-inland.hwcloudtest.cn/rem/ruanjie/h264_1280x720_1.4m_30fp_cenc/dash.mpd",
+				'https://hwposter-inland.hwcloudtest.cn/rem/ruanjie/h264_1920x1080_4.2m_30fp_cenc/dash.mpd",
+				'https://hwposter-inland.hwcloudtest.cn/rem/ruanjie/h264_2560x1440_4.9m_30fp_cenc/dash.mpd",
+				'https://hwposter-inland.hwcloudtest.cn/rem/ruanjie/h264_3840x2160_8.4m_30fp_cenc/dash.mpd",
+				'https://hwposter-inland.hwcloudtest.cn/rem/ruanjie/h264_480x270_0.2m_30fp_cbcs/dash.mpd",
 			];
 			let currentTrackIndex = 0;
-			let useHard = 1;
-            		player = dashjs.MediaPlayer().create();
+
+			player = dashjs.MediaPlayer().create();
 			player.initialize(video, tracks[currentTrackIndex], true);
-			if (useHard > 0) {
-				player.setProtectionData(protDataHW);
-			} else {
-				player.setProtectionData(protData);
-			}
+			player.setProtectionData(protData[currentTrackIndex]);			
 			
 			prevButton.addEventListener('click', function () {
 				if (currentTrackIndex > 0) {
 					currentTrackIndex--;
 					player.attachSource(tracks[currentTrackIndex]);
-					if (useHard > 0) {
-						player.setProtectionData(protDataHW);
-					} else {
-						player.setProtectionData(protData);
-					}
+					player.setProtectionData(protData[currentTrackIndex]);
 				}
 			});
 
@@ -74,26 +103,9 @@
 				if (currentTrackIndex < tracks.length - 1) {
 					currentTrackIndex++;
 					player.attachSource(tracks[currentTrackIndex]);
-					if (useHard > 0) {
-						player.setProtectionData(protDataHW);
-					} else {
-						player.setProtectionData(protData);
-					}
+					player.setProtectionData(protData[currentTrackIndex]);	
 				}
 			});
-
-			hardSecure.addEventListener('click', function () {
-				useHard = 1;
-				player.attachSource(tracks[currentTrackIndex]);
-				player.setProtectionData(protDataHW);
-			});
-
-			softSecure.addEventListener('click', function () {
-				useHard = 0;
-				player.attachSource(tracks[currentTrackIndex]);
-				player.setProtectionData(protData);
-			});
-
         }
 
         function check() {
@@ -127,19 +139,12 @@
             <div class="col-md-8">
                 <video controls="true"></video>
             </div>
-			<div>
 				<div>
-					<button id="hardSecure">硬件解密</button>
-					<button id="softSecure">软件解密</button>
+				<div>
 					<button id="prevButton">上一曲</button>
 					<button id="nextButton">下一曲</button>
 				</div>
 			</div>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
-                <div id="code-output"></div>
-            </div>
         </div>
         <footer class="pt-3 mt-4 text-muted border-top">
             &copy; DASH-IF
