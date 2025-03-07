@@ -1,1 +1,169 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Wiseplay H264硬件解密</title>
 
+    <script src="./lib/dash.all.min.js"></script>
+
+    <!-- Bootstrap core CSS -->
+    <link href="./lib/bootstrap/bootstrap.min.css" rel="stylesheet">
+    <link href="./lib/main.css" rel="stylesheet">
+
+    <style>
+        video {
+            width: 640px;
+            height: 360px;
+        }
+    </style>
+
+    <script class="code">
+        function init() {
+            var protDatas = [                
+                {
+                    "com.wiseplay.drm": {
+                        "serverURL": "http://license.dev.trustdta.com:8080/drmproxy/v3/getLicense?contentId=sfasRAeuyHJFSJA",
+                        "videoRobustness": "HW_SECURE_DECODE"
+                    }
+                },
+                {
+                    "com.wiseplay.drm": {
+                        "serverURL": "http://license.dev.trustdta.com:8080/drmproxy/v3/getLicense?contentId=sfasRAeuyHJFSJA",
+                        "videoRobustness": "HW_SECURE_DECODE"
+                    }
+                },
+                {
+                    "com.wiseplay.drm": {
+                        "serverURL": "http://license.dev.trustdta.com:8080/drmproxy/v3/getLicense?contentId=sfasRAeuyHJFSJA",
+                        "videoRobustness": "HW_SECURE_DECODE"
+                    }
+                },
+                {
+                    "com.wiseplay.drm": {
+                        "serverURL": "http://license.dev.trustdta.com:8080/drmproxy/v3/getLicense?contentId=sfasRAeuyHJFSJA",
+                        "videoRobustness": "HW_SECURE_DECODE"
+                    }
+                },
+                {
+                    "com.wiseplay.drm": {
+                        "serverURL": "http://license.dev.trustdta.com:8080/drmproxy/v3/getLicense?contentId=sfasRAeuyHJFSJA",
+                        "videoRobustness": "HW_SECURE_DECODE"
+                    }
+                },
+                {
+                    "com.wiseplay.drm": {
+                        "serverURL": "http://license.dev.trustdta.com:8080/drmproxy/v3/getLicense?contentId=sfasRAeuyHJFSJA",
+                        "videoRobustness": "HW_SECURE_DECODE"
+                    }
+                },
+                {
+                    "com.wiseplay.drm": {
+                        "serverURL": "http://license.dev.trustdta.com:8080/drmproxy/v3/getLicense?contentId=sfasRAeuyHJFSJA",
+                        "videoRobustness": "HW_SECURE_DECODE"
+                    }
+                },
+                {
+                    "com.wiseplay.drm": {
+                        "serverURL": "http://license.dev.trustdta.com:8080/drmproxy/v3/getLicense?contentId=sfasRAeuyHJFSJA",
+                        "videoRobustness": "HW_SECURE_DECODE"
+                    }
+                },
+                {
+                    "com.wiseplay.drm": {
+                        "serverURL": "http://license.dev.trustdta.com:8080/drmproxy/v3/getLicense?contentId=sfasRAeuyHJFSJA",
+                        "videoRobustness": "HW_SECURE_DECODE"
+                    }
+                }
+            ];
+            var video,
+                player,
+                url = "https://hwposter-inland.hwcloudtest.cn/rem/ruanjie/h265_2560x1440_4.9m_30fp_cenc/dash.mpd";
+
+            const tracks = [
+                'https://hwposter-inland.hwcloudtest.cn/rem/LaunchEvent/DASH_MP4_H264_SD&HD/dash.mpd',
+                'https://hwposter-inland.hwcloudtest.cn/rem/LaunchEvent/DASH_MP4_H264_clear/dash.mpd',
+                'https://hwposter-inland.hwcloudtest.cn/rem/LaunchEvent/h264_480x270_0.2m_30fp_cenc/dash.mpd',
+                'https://hwposter-inland.hwcloudtest.cn/rem/LaunchEvent/h264_640x480_0.5m_30fp_cenc/dash.mpd',
+                'https://hwposter-inland.hwcloudtest.cn/rem/LaunchEvent/h264_1280x720_1.4m_30fp_cenc/dash.mpd',
+                'https://hwposter-inland.hwcloudtest.cn/rem/LaunchEvent/h264_1920x1080_4.2m_30fp_cenc/dash.mpd',
+                'https://hwposter-inland.hwcloudtest.cn/rem/LaunchEvent/h264_2560x1440_4.9m_30fp_cenc/dash.mpd',
+                'https://hwposter-inland.hwcloudtest.cn/rem/LaunchEvent/h264_3840x2160_8.4m_30fp_cenc/dash.mpd',
+                'https://hwposter-inland.hwcloudtest.cn/rem/LaunchEvent/h264_480x270_0.2m_30fp_cbcs/dash.mpd'
+            ];
+
+            const titles = [
+                '1 DASH MP4 H264 SD&HD',
+                '2 DASH MP4 H264-clear',
+                '3 cenc-dash-h264-480*270-0.2M-30fps-smooth',
+                '4 cenc-dash-h264-640*480-0.5M-30fps-SD',
+                '5 cenc-dash-h264-1280*720-1.4M-30fps-HD',
+                '6 cenc-dash-h264-1920*1080-4.2M-30fps-FHD',
+                '7 cenc-dash-h264-2560*1440-4.9M-30fps-2K',
+                '8 cenc-dash-h264-3840*2160-8.4M-30fps-4K',
+                '9 cbcs-dash-h264-480*270-0.2M-30fps-smooth'
+            ]
+            let currentTrackIndex = 0;
+
+            player = dashjs.MediaPlayer().create();
+            player.initialize(video, tracks[currentTrackIndex], true);
+            player.setProtectionData(protDatas[currentTrackIndex]);            
+            var div = document.getElementById('http-warning');
+            div.innerHTML = tracks[currentTrackIndex];
+            div.style.display = ''
+            prevButton.addEventListener('click', function () {
+                if (currentTrackIndex > 0) {
+                    currentTrackIndex--;
+                    player.attachSource(tracks[currentTrackIndex]);
+                    player.setProtectionData(protDatas[currentTrackIndex]);
+                    div.innerHTML = titles[currentTrackIndex];
+                    div.style.display = ''
+                }
+            });
+
+            nextButton.addEventListener('click', function () {
+                if (currentTrackIndex < tracks.length - 1) {
+                    currentTrackIndex++;
+                    player.attachSource(tracks[currentTrackIndex]);
+                    player.setProtectionData(protDatas[currentTrackIndex]);
+                    div.innerHTML = titles[currentTrackIndex];
+                    div.style.display = ''
+                }
+            });     
+        }
+    </script>
+</head>
+<body>
+
+<main>
+    <div class="container py-4">
+        <h4>Wiseplay H264硬件解密</h4>
+
+        <div class="row">
+            <div class="col-md-8">
+                <video controls="true"></video>
+            </div>
+            <div>
+                <div>
+                    <button id="prevButton">上一曲</button>
+                    <button id="nextButton">下一曲</button>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="alert alert-danger" role="alert" style="display: none" id="http-warning">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer class="pt-3 mt-4 text-muted border-top">
+            &copy; DASH-IF
+        </footer>
+    </div>
+</main>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        init();
+    });
+</script>
+</body>
+</html>
