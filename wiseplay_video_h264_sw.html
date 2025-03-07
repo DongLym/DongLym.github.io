@@ -62,6 +62,11 @@
                 },
                 {
                     "com.wiseplay.drm": {
+                        "serverURL": "http://license.dev.trustdta.com:8080/drmproxy/v3/getLicense?contentId=t6VapJo9vLB2U69&useDrmProxy=1"
+                    }
+                },
+                {
+                    "com.wiseplay.drm": {
                         "serverURL": "http://license.dev.trustdta.com:8080/drmproxy/v3/getLicense?contentId=eSxzBQRMG0rXCku&useDrmProxy=1"
                     }
                 }
@@ -79,7 +84,8 @@
                 'https://hwposter-inland.hwcloudtest.cn/rem/ruanjie/h264_1920x1080_4.2m_30fp_cenc/dash.mpd',
                 'https://hwposter-inland.hwcloudtest.cn/rem/ruanjie/h264_2560x1440_4.9m_30fp_cenc/dash.mpd',
                 'https://hwposter-inland.hwcloudtest.cn/rem/ruanjie/h264_3840x2160_8.4m_30fp_cenc/dash.mpd',
-                'https://hwposter-inland.hwcloudtest.cn/rem/ruanjie/h264_480x270_0.2m_30fp_cbcs/dash.mpd'
+                'https://hwposter-inland.hwcloudtest.cn/rem/ruanjie/h264_480x270_0.2m_30fp_cbcs/dash.mpd',
+                'https://hwposter-inland.hwcloudtest.cn/rem/ruanjie/h264_480x270_0.2m_30fp_cens/dash.mpd'
             ];
 
             const titles = [
@@ -91,7 +97,8 @@
                 '6 cenc-dash-h264-1920*1080-4.2M-30fps-FHD',
                 '7 cenc-dash-h264-2560*1440-4.9M-30fps-2K',
                 '8 cenc-dash-h264-3840*2160-8.4M-30fps-4K',
-                '9 cbcs-dash-h264-480*270-0.2M-30fps-smooth'
+                '9 cbcs-dash-h264-480*270-0.2M-30fps-smooth',
+                '10 cens-dash-h264-480*270-0.2M-30fps-smooth'
             ]
             let currentTrackIndex = 0;
 
@@ -99,7 +106,7 @@
             player.initialize(video, tracks[currentTrackIndex], true);
             player.setProtectionData(protDatas[currentTrackIndex]);            
             var div = document.getElementById('http-warning');
-            div.innerHTML = tracks[currentTrackIndex];
+            div.innerHTML = titles[currentTrackIndex];
             div.style.display = ''
             prevButton.addEventListener('click', function () {
                 if (currentTrackIndex > 0) {
