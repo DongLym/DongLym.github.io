@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Wiseplay DRM instantiation example</title>
+    <title>Wiseplay H264软件解密</title>
 
     <script src="./lib/dash.all.min.js"></script>
 
@@ -19,30 +19,108 @@
 
     <script class="code">
         function init() {
-            var protData = {
-                "com.wiseplay.drm": {
-                    "serverURL": "http://license.dev.trustdta.com:8080/drmproxy/v3/getLicense?contentId=sfasRAeuyHJFSJA",
-                    "videoRobustness": "HW_SECURE_DECODE"
+            var protDatas = [                
+                {
+                    "com.wiseplay.drm": {
+                        "serverURL": "http://license.dev.trustdta.com:8080/drmproxy/v3/getLicense?contentId=9E5cd3GUxC4BAEB&useDrmProxy=1"
+                    }
+                },
+                {
+                    "com.wiseplay.drm": {
+                        "serverURL": "http://license.dev.trustdta.com:8080/drmproxy/v3/getLicense?contentId=sfasRuanJieFSJA&useDrmProxy=1"
+                    }
+                },
+                {
+                    "com.wiseplay.drm": {
+                        "serverURL": "http://license.dev.trustdta.com:8080/drmproxy/v3/getLicense?contentId=KFW55Oyx3wEzb9r&useDrmProxy=1"
+                    }
+                },
+                {
+                    "com.wiseplay.drm": {
+                        "serverURL": "http://license.dev.trustdta.com:8080/drmproxy/v3/getLicense?contentId=f57kbjTu1o178LY&useDrmProxy=1"
+                    }
+                },
+                {
+                    "com.wiseplay.drm": {
+                        "serverURL": "http://license.dev.trustdta.com:8080/drmproxy/v3/getLicense?contentId=5cKGJ70rm2y7z2V&useDrmProxy=1"
+                    }
+                },
+                {
+                    "com.wiseplay.drm": {
+                        "serverURL": "http://license.dev.trustdta.com:8080/drmproxy/v3/getLicense?contentId=s70gpa39DIKgHd9&useDrmProxy=1"
+                    }
+                },
+                {
+                    "com.wiseplay.drm": {
+                        "serverURL": "http://license.dev.trustdta.com:8080/drmproxy/v3/getLicense?contentId=T3dFwj5937QJKHY&useDrmProxy=1"
+                    }
+                },
+                {
+                    "com.wiseplay.drm": {
+                        "serverURL": "http://license.dev.trustdta.com:8080/drmproxy/v3/getLicense?contentId=uCRSolbPuu9F2WC&useDrmProxy=1"
+                    }
+                },
+                {
+                    "com.wiseplay.drm": {
+                        "serverURL": "http://license.dev.trustdta.com:8080/drmproxy/v3/getLicense?contentId=eSxzBQRMG0rXCku&useDrmProxy=1"
+                    }
                 }
-            };
+            ];
             var video,
                 player,
-                url = "https://hwposter-inland.hwcloudtest.cn/rem/LaunchEvent/h264_3840x2160_8.4m_30fp_cenc/dash.mpd";
+                url = "https://hwposter-inland.hwcloudtest.cn/rem/ruanjie/h265_2560x1440_4.9m_30fp_cenc/dash.mpd";
 
             video = document.querySelector("video");
-            player = dashjs.MediaPlayer().create();
-            player.initialize(video, url, true);
-            player.setProtectionData(protData);
-        }
+            const prevButton = document.getElementById('prevButton');
+            const nextButton = document.getElementById('nextButton');
+            const videoButton1 = document.getElementById('videoButton1');
+            const videoButton2 = document.getElementById('videoButton2');
+            const videoButton3 = document.getElementById('videoButton3');
+            const videoButton4 = document.getElementById('videoButton4');
+            const videoButton5 = document.getElementById('videoButton5');
+            const videoButton6 = document.getElementById('videoButton6');
+            const videoButton7 = document.getElementById('videoButton7');
+            const videoButton8 = document.getElementById('videoButton8');
+            const videoButton9 = document.getElementById('videoButton9');
 
-        function check() {
-            if (location.protocol === 'http:' && location.hostname !== 'localhost') {
-                var out = 'This page has been loaded under http. This might result in the EME APIs not being available to the player and any DRM-protected content will fail to play. ' +
-                    'If you wish to test manifest URLs that require EME support, then <a href=\'https:' + window.location.href.substring(window.location.protocol.length) + '\'>reload this page under https</a>.'
-                var div = document.getElementById('http-warning');
-                div.innerHTML = out;
-                div.style.display = ''
-            }
+            const tracks = [
+                'https://hwposter-inland.hwcloudtest.cn/rem/ruanjie/H264dfbl/duoship_dash.mpd',
+                'https://hwposter-inland.hwcloudtest.cn/rem/LaunchEvent/DASH_MP4_H264_SD&HD/dash.mpd',
+                'https://hwposter-inland.hwcloudtest.cn/rem/ruanjie/h264_480x270_0.2m_30fp_cenc/dash.mpd',
+                'https://hwposter-inland.hwcloudtest.cn/rem/ruanjie/h264_640x480_0.5m_30fp_cenc/dash.mpd',
+                'https://hwposter-inland.hwcloudtest.cn/rem/ruanjie/h264_1280x720_1.4m_30fp_cenc/dash.mpd',
+                'https://hwposter-inland.hwcloudtest.cn/rem/ruanjie/h264_1920x1080_4.2m_30fp_cenc/dash.mpd',
+                'https://hwposter-inland.hwcloudtest.cn/rem/ruanjie/h264_2560x1440_4.9m_30fp_cenc/dash.mpd',
+                'https://hwposter-inland.hwcloudtest.cn/rem/ruanjie/h264_3840x2160_8.4m_30fp_cenc/dash.mpd',
+                'https://hwposter-inland.hwcloudtest.cn/rem/ruanjie/h264_480x270_0.2m_30fp_cbcs/dash.mpd'
+            ];
+            let currentTrackIndex = 0;
+
+            player = dashjs.MediaPlayer().create();
+            player.initialize(video, tracks[currentTrackIndex], true);
+            player.setProtectionData(protDatas[currentTrackIndex]);            
+            var div = document.getElementById('http-warning');
+            div.innerHTML = tracks[currentTrackIndex];
+            div.style.display = ''
+            prevButton.addEventListener('click', function () {
+                if (currentTrackIndex > 0) {
+                    currentTrackIndex--;
+                    player.attachSource(tracks[currentTrackIndex]);
+                    player.setProtectionData(protDatas[currentTrackIndex]);
+                    div.innerHTML = currentTrackIndex + "." + tracks[currentTrackIndex];
+                    div.style.display = ''
+                }
+            });
+
+            nextButton.addEventListener('click', function () {
+                if (currentTrackIndex < tracks.length - 1) {
+                    currentTrackIndex++;
+                    player.attachSource(tracks[currentTrackIndex]);
+                    player.setProtectionData(protDatas[currentTrackIndex]);
+                    div.innerHTML = currentTrackIndex + "." + tracks[currentTrackIndex];
+                    div.style.display = ''
+                }
+            });
         }
     </script>
 </head>
@@ -50,26 +128,24 @@
 
 <main>
     <div class="container py-4">
-        <header class="pb-3 mb-4 border-bottom">
-            <img class=""
-                 src="./lib/img/dashjs-logo.png"
-                 width="200">
-        </header>
-        <div class="row">
-            <div class="col-md-12">
-                <div class="alert alert-danger" role="alert" style="display: none" id="http-warning">
+        <h4>Wiseplay H264软件解密</h4>
 
-                </div>
-            </div>
-        </div>
         <div class="row">
             <div class="col-md-8">
                 <video controls="true"></video>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
-                <div id="code-output"></div>
+            <div>
+                <div>
+                    <button id="prevButton">上一曲</button>
+                    <button id="nextButton">下一曲</button>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="alert alert-danger" role="alert" style="display: none" id="http-warning">
+                        </div>
+                    </div>
+                </div>
+            
             </div>
         </div>
         <footer class="pt-3 mt-4 text-muted border-top">
@@ -81,10 +157,8 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-        check();
         init();
     });
 </script>
-<script src="./highlighter.js"></script>
 </body>
 </html>
