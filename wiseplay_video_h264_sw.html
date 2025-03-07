@@ -90,12 +90,16 @@
             player = dashjs.MediaPlayer().create();
             player.initialize(video, tracks[currentTrackIndex], true);
             player.setProtectionData(protDatas[currentTrackIndex]);            
-            
+            var div = document.getElementById('http-warning');
+            div.innerHTML = tracks[currentTrackIndex];
+            div.style.display = ''
             prevButton.addEventListener('click', function () {
                 if (currentTrackIndex > 0) {
                     currentTrackIndex--;
                     player.attachSource(tracks[currentTrackIndex]);
                     player.setProtectionData(protDatas[currentTrackIndex]);
+                    div.innerHTML = tracks[currentTrackIndex];
+                    div.style.display = ''
                 }
             });
 
@@ -103,7 +107,9 @@
                 if (currentTrackIndex < tracks.length - 1) {
                     currentTrackIndex++;
                     player.attachSource(tracks[currentTrackIndex]);
-                    player.setProtectionData(protDatas[currentTrackIndex]);    
+                    player.setProtectionData(protDatas[currentTrackIndex]);
+                    div.innerHTML = tracks[currentTrackIndex];
+                    div.style.display = ''
                 }
             });
         }
@@ -114,13 +120,7 @@
 <main>
     <div class="container py-4">
         <h4>Wiseplay H264软件解密</h4>
-        <div class="row">
-            <div class="col-md-12">
-                <div class="alert alert-danger" role="alert" style="display: none" id="http-warning">
 
-                </div>
-            </div>
-        </div>
         <div class="row">
             <div class="col-md-8">
                 <video controls="true"></video>
@@ -129,6 +129,12 @@
                 <div>
                     <button id="prevButton">上一曲</button>
                     <button id="nextButton">下一曲</button>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="alert alert-danger" role="alert" style="display: none" id="http-warning">
+                        </div>
+                    </div>
                 </div>
                 <div>
                     <button id="prevButton1">1 DASH MP4 H264 SD&HD</button>
