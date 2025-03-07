@@ -19,6 +19,7 @@
 
     <script class="code">
         function init() {
+            console.log("init");
             var protDatas = [                
                 {
                     "com.wiseplay.drm": {
@@ -103,11 +104,15 @@
             let currentTrackIndex = 0;
 
             player = dashjs.MediaPlayer().create();
+            console.log(player);
+            console.log("initialize");
             player.initialize(video, tracks[currentTrackIndex], true);
+            console.log("setProtectionData");
             player.setProtectionData(protDatas[currentTrackIndex]);            
             var div = document.getElementById('http-warning');
             div.innerHTML = titles[currentTrackIndex];
             div.style.display = ''
+            console.log("addEventListener");
             prevButton.addEventListener('click', function () {
                 if (currentTrackIndex > 0) {
                     currentTrackIndex--;
@@ -126,7 +131,8 @@
                     div.innerHTML = titles[currentTrackIndex];
                     div.style.display = ''
                 }
-            });     
+            });
+            console.log("init end");
         }
     </script>
 </head>
