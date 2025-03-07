@@ -68,7 +68,6 @@
             video = document.querySelector("video");
             const prevButton = document.getElementById('prevButton');
             const nextButton = document.getElementById('nextButton');
-            const videoButton1 = document.getElementById('videoButton1');
             const tracks = [
                 'https://hwposter-inland.hwcloudtest.cn/rem/ruanjie/H264dfbl/duoship_dash.mpd',
                 'https://hwposter-inland.hwcloudtest.cn/rem/LaunchEvent/DASH_MP4_H264_SD&HD/dash.mpd',
@@ -105,13 +104,7 @@
                     div.style.display = ''
                 }
             });
-            videoButton1.addEventListener('click', function () {
-                currentTrackIndex = 0;
-                player.attachSource(tracks[currentTrackIndex]);
-                player.setProtectionData(protDatas[currentTrackIndex]);
-                div.innerHTML = currentTrackIndex + "." + tracks[currentTrackIndex];
-                div.style.display = ''
-            });
+            
         }
     </script>
 </head>
