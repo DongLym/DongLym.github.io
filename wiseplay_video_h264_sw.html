@@ -3,20 +3,16 @@
 <head>
     <meta charset="utf-8">
     <title>Wiseplay H264软件解密</title>
-
     <script src="./lib/dash.all.min.js"></script>
-
     <!-- Bootstrap core CSS -->
     <link href="./lib/bootstrap/bootstrap.min.css" rel="stylesheet">
     <link href="./lib/main.css" rel="stylesheet">
-
     <style>
         video {
             width: 640px;
             height: 360px;
         }
     </style>
-
     <script class="code">
         function init() {
             var protDatas = [                
@@ -69,11 +65,10 @@
             var video,
                 player,
                 url = "https://hwposter-inland.hwcloudtest.cn/rem/ruanjie/h265_2560x1440_4.9m_30fp_cenc/dash.mpd";
-
             video = document.querySelector("video");
             const prevButton = document.getElementById('prevButton');
             const nextButton = document.getElementById('nextButton');
-        
+            const videoButton1 = document.getElementById('videoButton1');
             const tracks = [
                 'https://hwposter-inland.hwcloudtest.cn/rem/ruanjie/H264dfbl/duoship_dash.mpd',
                 'https://hwposter-inland.hwcloudtest.cn/rem/LaunchEvent/DASH_MP4_H264_SD&HD/dash.mpd',
@@ -86,7 +81,6 @@
                 'https://hwposter-inland.hwcloudtest.cn/rem/ruanjie/h264_480x270_0.2m_30fp_cbcs/dash.mpd'
             ];
             let currentTrackIndex = 0;
-
             player = dashjs.MediaPlayer().create();
             player.initialize(video, tracks[currentTrackIndex], true);
             player.setProtectionData(protDatas[currentTrackIndex]);            
@@ -98,29 +92,33 @@
                     currentTrackIndex--;
                     player.attachSource(tracks[currentTrackIndex]);
                     player.setProtectionData(protDatas[currentTrackIndex]);
-                    div.innerHTML = tracks[currentTrackIndex];
+                    div.innerHTML = currentTrackIndex + "." + tracks[currentTrackIndex];
                     div.style.display = ''
                 }
             });
-
             nextButton.addEventListener('click', function () {
                 if (currentTrackIndex < tracks.length - 1) {
                     currentTrackIndex++;
                     player.attachSource(tracks[currentTrackIndex]);
                     player.setProtectionData(protDatas[currentTrackIndex]);
-                    div.innerHTML = tracks[currentTrackIndex];
-                    div.style.display = ''   
+                    div.innerHTML = currentTrackIndex + "." + tracks[currentTrackIndex];
+                    div.style.display = ''
                 }
+            });
+            videoButton1.addEventListener('click', function () {
+                currentTrackIndex = 0;
+                player.attachSource(tracks[currentTrackIndex]);
+                player.setProtectionData(protDatas[currentTrackIndex]);
+                div.innerHTML = currentTrackIndex + "." + tracks[currentTrackIndex];
+                div.style.display = ''
             });
         }
     </script>
 </head>
 <body>
-
 <main>
     <div class="container py-4">
         <h4>Wiseplay H264软件解密</h4>
-
         <div class="row">
             <div class="col-md-8">
                 <video controls="true"></video>
@@ -137,28 +135,31 @@
                     </div>
                 </div>
                 <div>
-                    <button id="prevButton1">1 DASH MP4 H264 SD&HD</button>
+                    <button id="videoButton1">1 DASH MP4 H264 SD&HD</button>
                 </div>
                 <div>
-                    <button id="prevButton2">2 DASH MP4 H264-clear</button>
+                    <button id="videoButton2">2 DASH MP4 H264-clear</button>
                 </div>
                 <div>
-                    <button id="prevButton3">3 cenc-dash-h264-480*270-0.2M-30fps-smooth</button>
+                    <button id="videoButton3">3 cenc-dash-h264-480*270-0.2M-30fps-smooth</button>
                 </div>
                 <div>
-                    <button id="prevButton4">4 cenc-dash-h264-640*480-0.5M-30fps-SD</button>
+                    <button id="videoButton4">4 cenc-dash-h264-640*480-0.5M-30fps-SD</button>
                 </div>
                 <div>
-                    <button id="prevButton5">5 cenc-dash-h264-1280*720-1.4M-30fps-HD</button>
+                    <button id="videoButton5">5 cenc-dash-h264-1280*720-1.4M-30fps-HD</button>
                 </div>
                 <div>
-                    <button id="prevButton6">6 DASH MP4 H264 SD&HD</button>
+                    <button id="videoButton6">6 cenc-dash-h264-1920*1080-4.2M-30fps-FHD</button>
                 </div>
                 <div>
-                    <button id="prevButton7">7 DASH MP4 H264 SD&HD</button>
+                    <button id="videoButton7">7 cenc-dash-h264-2560*1440-4.9M-30fps-2K</button>
                 </div>
                 <div>
-                    <button id="prevButton8">8 DASH MP4 H264 SD&HD</button>
+                    <button id="videoButton8">8 cenc-dash-h264-3840*2160-8.4M-30fps-4K</button>
+                </div>
+                <div>
+                    <button id="videoButton9">9 cbcs-dash-h264-480*270-0.2M-30fps-smooth</button>
                 </div>
             </div>
         </div>
@@ -167,8 +168,6 @@
         </footer>
     </div>
 </main>
-
-
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         init();
