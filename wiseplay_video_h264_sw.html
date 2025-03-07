@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>WisePlay H264 软解</title>
+    <title>Wiseplay H264软件解密</title>
 
     <script src="./lib/dash.all.min.js"></script>
 
@@ -21,17 +21,79 @@
         function init() {
             var protData = {
                 "com.wiseplay.drm": {
-                    "serverURL": "http://license.dev.trustdta.com:8080/drmproxy/v3/getLicense?contentId=uCRSolbPuu9F2WC&useDrmProxy=1"
+                    "serverURL": "http://license.dev.trustdta.com:8080/drmproxy/v3/getLicense?contentId=R1j36c65kUGeWN5&useDrmProxy=1"
+                }
+            };
+	    var protDataHW = {
+                "com.wiseplay.drm": {
+                    "serverURL": "http://license.dev.trustdta.com:8080/drmproxy/v3/getLicense?contentId=R1j36c65kUGeWN5&useDrmProxy=1",
+                    "videoRobustness": "HW_SECURE_DECODE"
                 }
             };
             var video,
                 player,
-                url = "https://hwposter-inland.hwcloudtest.cn/rem/ruanjie/h264_3840x2160_8.4m_30fp_cenc/dash.mpd";
+                url = "https://hwposter-inland.hwcloudtest.cn/rem/ruanjie/h265_2560x1440_4.9m_30fp_cenc/dash.mpd";
 
             video = document.querySelector("video");
-            player = dashjs.MediaPlayer().create();
-            player.initialize(video, url, true);
-            player.setProtectionData(protData);
+			const prevButton = document.getElementById('prevButton');
+			const nextButton = document.getElementById('nextButton');
+		
+			const hardSecure = document.getElementById('hardSecure');
+			const softSecure = document.getElementById('softSecure');
+		
+			const tracks = [
+				'https://hwposter-inland.hwcloudtest.cn/rem/ruanjie/h265_2560x1440_4.9m_30fp_cenc/dash.mpd',
+				'https://hwposter-inland.hwcloudtest.cn/rem/ruanjie/h265_2560x1440_4.9m_30fp_cenc/dash.mpd',
+				'https://hwposter-inland.hwcloudtest.cn/rem/ruanjie/h265_2560x1440_4.9m_30fp_cenc/dash.mpd',
+				'https://hwposter-inland.hwcloudtest.cn/rem/ruanjie/h265_2560x1440_4.9m_30fp_cenc/dash.mpd',
+				'https://hwposter-inland.hwcloudtest.cn/rem/ruanjie/h265_2560x1440_4.9m_30fp_cenc/dash.mpd'
+			];
+			let currentTrackIndex = 0;
+			let useHard = 1;
+            		player = dashjs.MediaPlayer().create();
+			player.initialize(video, tracks[currentTrackIndex], true);
+			if (useHard > 0) {
+				player.setProtectionData(protDataHW);
+			} else {
+				player.setProtectionData(protData);
+			}
+			
+			prevButton.addEventListener('click', function () {
+				if (currentTrackIndex > 0) {
+					currentTrackIndex--;
+					player.attachSource(tracks[currentTrackIndex]);
+					if (useHard > 0) {
+						player.setProtectionData(protDataHW);
+					} else {
+						player.setProtectionData(protData);
+					}
+				}
+			});
+
+			nextButton.addEventListener('click', function () {
+				if (currentTrackIndex < tracks.length - 1) {
+					currentTrackIndex++;
+					player.attachSource(tracks[currentTrackIndex]);
+					if (useHard > 0) {
+						player.setProtectionData(protDataHW);
+					} else {
+						player.setProtectionData(protData);
+					}
+				}
+			});
+
+			hardSecure.addEventListener('click', function () {
+				useHard = 1;
+				player.attachSource(tracks[currentTrackIndex]);
+				player.setProtectionData(protDataHW);
+			});
+
+			softSecure.addEventListener('click', function () {
+				useHard = 0;
+				player.attachSource(tracks[currentTrackIndex]);
+				player.setProtectionData(protData);
+			});
+
         }
 
         function check() {
@@ -65,6 +127,19 @@
             <div class="col-md-8">
                 <video controls="true"></video>
             </div>
+			<div>
+				<div>
+					<button id="hardSecure">硬件解密</button>
+					<button id="softSecure">软件解密</button>
+					<button id="prevButton">上一曲</button>
+					<button id="nextButton">下一曲</button>
+				</div>
+			</div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div id="code-output"></div>
+            </div>
         </div>
         <footer class="pt-3 mt-4 text-muted border-top">
             &copy; DASH-IF
@@ -79,5 +154,6 @@
         init();
     });
 </script>
+<script src="./highlighter.js"></script>
 </body>
 </html>
