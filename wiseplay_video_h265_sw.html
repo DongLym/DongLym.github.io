@@ -3,55 +3,224 @@
 <head>
     <meta charset="utf-8">
     <title>Wiseplay H265软件解密</title>
-
     <script src="./lib/dash.all.min.js"></script>
-
     <!-- Bootstrap core CSS -->
     <link href="./lib/bootstrap/bootstrap.min.css" rel="stylesheet">
     <link href="./lib/main.css" rel="stylesheet">
-
     <style>
         video {
             width: 640px;
             height: 360px;
         }
     </style>
-
     <script class="code">
         function init() {
             var protDatas = [                
                 {
                     "com.wiseplay.drm": {
+                        "serverURL": "http://license.dev.trustdta.com:8080/drmproxy/v3/getLicense?contentId=AvScd53uhReb1TG&useDrmProxy=1"
+                    }
+                },
+                {
+                    "com.wiseplay.drm": {
+                        "serverURL": "http://license.dev.trustdta.com:8080/drmproxy/v3/getLicense?contentId=sfasRuanJieFSJA&useDrmProxy=1"
+                    }
+                },
+                {
+                    "com.wiseplay.drm": {
+                        "serverURL": "http://license.dev.trustdta.com:8080/drmproxy/v3/getLicense?contentId=34Z29nq6eW9j4eu&useDrmProxy=1"
+                    }
+                },
+                {
+                    "com.wiseplay.drm": {
+                        "serverURL": "http://license.dev.trustdta.com:8080/drmproxy/v3/getLicense?contentId=X5x1CxjoJRb4Xk5&useDrmProxy=1"
+                    }
+                },
+                {
+                    "com.wiseplay.drm": {
+                        "serverURL": "http://license.dev.trustdta.com:8080/drmproxy/v3/getLicense?contentId=5VMtmp983TmI3eB&useDrmProxy=1"
+                    }
+                },
+                {
+                    "com.wiseplay.drm": {
+                        "serverURL": "http://license.dev.trustdta.com:8080/drmproxy/v3/getLicense?contentId=uYxkvO51xxzD40P&useDrmProxy=1"
+                    }
+                },
+                {
+                    "com.wiseplay.drm": {
                         "serverURL": "http://license.dev.trustdta.com:8080/drmproxy/v3/getLicense?contentId=R1j36c65kUGeWN5&useDrmProxy=1"
+                    }
+                },
+                {
+                    "com.wiseplay.drm": {
+                        "serverURL": "http://license.dev.trustdta.com:8080/drmproxy/v3/getLicense?contentId=68QLR7GL6OFZFGh&useDrmProxy=1"
+                    }
+                },
+                {
+                    "com.wiseplay.drm": {
+                        "serverURL": "http://license.dev.trustdta.com:8080/drmproxy/v3/getLicense?contentId=lWP0rAJBXsQ47s8&useDrmProxy=1"
+                    }
+                },
+                {
+                    "com.wiseplay.drm": {
+                        "serverURL": "http://license.dev.trustdta.com:8080/drmproxy/v3/getLicense?contentId=QOwSloxL5g8BnG7&useDrmProxy=1"
+                    }
+                },
+                {
+                    "com.wiseplay.drm": {
+                        "serverURL": "http://license.dev.trustdta.com:8080/drmproxy/v3/getLicense?contentId=NyaxclUpERbFDbv&useDrmProxy=1"
+                    }
+                },
+                {
+                    "com.wiseplay.drm": {
+                        "serverURL": "http://license.dev.trustdta.com:8080/drmproxy/v3/getLicense?contentId=R217SBfY0UCYZS3&useDrmProxy=1"
+                    }
+                },
+                {
+                    "com.wiseplay.drm": {
+                        "serverURL": "http://license.dev.trustdta.com:8080/drmproxy/v3/getLicense?contentId=PZe243Mu0VHFNke&useDrmProxy=1"
+                    }
+                },
+                {
+                    "com.wiseplay.drm": {
+                        "serverURL": "http://license.dev.trustdta.com:8080/drmproxy/v3/getLicense?contentId=MjGET1h1xAMn02b&useDrmProxy=1"
+                    }
+                },
+                {
+                    "com.wiseplay.drm": {
+                        "serverURL": "http://license.dev.trustdta.com:8080/drmproxy/v3/getLicense?contentId=ic38TO1B269BIfE&useDrmProxy=1"
+                    }
+                },
+                {
+                    "com.wiseplay.drm": {
+                        "serverURL": "http://license.dev.trustdta.com:8080/drmproxy/v3/getLicense?contentId=funhY49W3k2198x&useDrmProxy=1"
+                    }
+                },
+                {
+                    "com.wiseplay.drm": {
+                        "serverURL": "http://license.dev.trustdta.com:8080/drmproxy/v3/getLicense?contentId=KX8D2p57xhLxUQJ&useDrmProxy=1"
+                    }
+                },
+                {
+                    "com.wiseplay.drm": {
+                        "serverURL": "http://license.dev.trustdta.com:8080/drmproxy/v3/getLicense?contentId=4ZLTrDkwfJ40YSP&useDrmProxy=1"
+                    }
+                },
+                {
+                    "com.wiseplay.drm": {
+                        "serverURL": "http://license.dev.trustdta.com:8080/drmproxy/v3/getLicense?contentId=8Ah2zTcW24qk6Km&useDrmProxy=1"
+                    }
+                },
+                {
+                    "com.wiseplay.drm": {
+                        "serverURL": "http://license.dev.trustdta.com:8080/drmproxy/v3/getLicense?contentId=3Q6Q9Hqal9h9tWA&useDrmProxy=1"
+                    }
+                },
+                {
+                    "com.wiseplay.drm": {
+                        "serverURL": "http://license.dev.trustdta.com:8080/drmproxy/v3/getLicense?contentId=VWx54ir4Yf1Rc9S&useDrmProxy=1"
+                    }
+                },
+                {
+                    "com.wiseplay.drm": {
+                        "serverURL": "http://license.dev.trustdta.com:8080/drmproxy/v3/getLicense?contentId=4LEy8k6AO6T63ZT&useDrmProxy=1"
+                    }
+                },
+                {
+                    "com.wiseplay.drm": {
+                        "serverURL": "http://license.dev.trustdta.com:8080/drmproxy/v3/getLicense?contentId=8fzV4YiRtP933os&useDrmProxy=1"
+                    }
+                },
+                {
+                    "com.wiseplay.drm": {
+                        "serverURL": "http://license.dev.trustdta.com:8080/drmproxy/v3/getLicense?contentId=91MJ5q25kYsBFid&useDrmProxy=1"
+                    }
+                },
+                {
+                    "com.wiseplay.drm": {
+                        "serverURL": "http://license.dev.trustdta.com:8080/drmproxy/v3/getLicense?contentId=PVhT6S3N37MvrNj&useDrmProxy=1"
+                    }
+                },
+                {
+                    "com.wiseplay.drm": {
+                        "serverURL": "http://license.dev.trustdta.com:8080/drmproxy/v3/getLicense?contentId=D8bcC9vD6mvmk5g&useDrmProxy=1"
+                    }
+                },
+                {
+                    "com.wiseplay.drm": {
+                        "serverURL": "http://license.dev.trustdta.com:8080/drmproxy/v3/getLicense?contentId=sfasRAeuyHJFSJC"
+                    }
+                },
+                {
+                    "com.wiseplay.drm": {
+                        "serverURL": "http://license.dev.trustdta.com:8080/drmproxy/v3/getLicense?contentId=sfasRAeuyHJFSJC"
                     }
                 }
             ];
             var video,
                 player,
                 url = "https://hwposter-inland.hwcloudtest.cn/rem/ruanjie/h265_2560x1440_4.9m_30fp_cenc/dash.mpd";
-
+            video = document.querySelector("video");
             const tracks = [
-                'https://hwposter-inland.hwcloudtest.cn/rem/ruanjie/H264dfbl/duoship_dash.mpd',
-                'https://hwposter-inland.hwcloudtest.cn/rem/LaunchEvent/DASH_MP4_H264_SD&HD/dash.mpd',
-                'https://hwposter-inland.hwcloudtest.cn/rem/ruanjie/h264_480x270_0.2m_30fp_cenc/dash.mpd',
-                'https://hwposter-inland.hwcloudtest.cn/rem/ruanjie/h264_640x480_0.5m_30fp_cenc/dash.mpd',
-                'https://hwposter-inland.hwcloudtest.cn/rem/ruanjie/h264_1280x720_1.4m_30fp_cenc/dash.mpd',
-                'https://hwposter-inland.hwcloudtest.cn/rem/ruanjie/h264_1920x1080_4.2m_30fp_cenc/dash.mpd',
-                'https://hwposter-inland.hwcloudtest.cn/rem/ruanjie/h264_2560x1440_4.9m_30fp_cenc/dash.mpd',
-                'https://hwposter-inland.hwcloudtest.cn/rem/ruanjie/h264_3840x2160_8.4m_30fp_cenc/dash.mpd',
-                'https://hwposter-inland.hwcloudtest.cn/rem/ruanjie/h264_480x270_0.2m_30fp_cbcs/dash.mpd'
+                'https://hwposter-inland.hwcloudtest.cn/rem/ruanjie/H265dfbl/duoship_dash.mpd',
+                'https://hwposter-inland.hwcloudtest.cn/rem/LaunchEvent/DASH_MP4_H265_clear/dash.mpd',
+                'https://hwposter-inland.hwcloudtest.cn/rem/ruanjie/h265_480x270_0.2m_30fp_cenc/dash.mpd',
+                'https://hwposter-inland.hwcloudtest.cn/rem/ruanjie/h265_640x480_0.5m_30fp_cenc/dash.mpd',
+                'https://hwposter-inland.hwcloudtest.cn/rem/ruanjie/h265_1280x720_1.4m_30fp_cenc/dash.mpd',
+                'https://hwposter-inland.hwcloudtest.cn/rem/ruanjie/h265_1920x1080_4.2m_30fp_cenc/dash.mpd',
+                'https://hwposter-inland.hwcloudtest.cn/rem/ruanjie/h265_2560x1440_4.9m_30fp_cenc/dash.mpd',
+                'https://hwposter-inland.hwcloudtest.cn/rem/ruanjie/h265_3840x2160_8.4m_30fp_cenc/dash.mpd',
+                'https://hwposter-inland.hwcloudtest.cn/rem/ruanjie/h265_480x270_0.2m_30fp_cens/dash.mpd',
+                'https://hwposter-inland.hwcloudtest.cn/rem/ruanjie/h265_640x480_0.5m_30fp_cens/dash.mpd',
+                'https://hwposter-inland.hwcloudtest.cn/rem/ruanjie/h265_1280x720_1.4m_30fp_cens/dash.mpd',
+                'https://hwposter-inland.hwcloudtest.cn/rem/ruanjie/h265_1920x1080_4.2m_30fp_cens/dash.mpd',
+                'https://hwposter-inland.hwcloudtest.cn/rem/ruanjie/h265_2560x1440_4.9m_30fp_cens/dash.mpd',
+                'https://hwposter-inland.hwcloudtest.cn/rem/ruanjie/h265_3840x2160_8.4m_30fp_cens/dash.mpd',
+                'https://hwposter-inland.hwcloudtest.cn/rem/ruanjie/h265_480x270_0.2m_30fp_cbc1/dash.mpd',
+                'https://hwposter-inland.hwcloudtest.cn/rem/ruanjie/h265_640x480_0.5m_30fp_cbc1/dash.mpd',
+                'https://hwposter-inland.hwcloudtest.cn/rem/ruanjie/h265_1280x720_1.4m_30fp_cbc1/dash.mpd',
+                'https://hwposter-inland.hwcloudtest.cn/rem/ruanjie/h265_1920x1080_4.2m_30fp_cbc1/dash.mpd',
+                'https://hwposter-inland.hwcloudtest.cn/rem/ruanjie/h265_2560x1440_4.9m_30fp_cbc1/dash.mpd',
+                'https://hwposter-inland.hwcloudtest.cn/rem/ruanjie/h265_3840x2160_8.4m_30fp_cbc1/dash.mpd',
+                'https://hwposter-inland.hwcloudtest.cn/rem/ruanjie/h265_480x270_0.2m_30fp_cbcs/dash.mpd',
+                'https://hwposter-inland.hwcloudtest.cn/rem/ruanjie/h265_640x480_0.5m_30fp_cbcs/dash.mpd',
+                'https://hwposter-inland.hwcloudtest.cn/rem/ruanjie/h265_1280x720_1.4m_30fp_cbcs/dash.mpd',
+                'https://hwposter-inland.hwcloudtest.cn/rem/ruanjie/h265_1920x1080_4.2m_30fp_cbcs/dash.mpd',
+                'https://hwposter-inland.hwcloudtest.cn/rem/ruanjie/h265_2560x1440_4.9m_30fp_cbcs/dash.mpd',
+                'https://hwposter-inland.hwcloudtest.cn/rem/ruanjie/h265_3840x2160_8.4m_30fp_cbcs/dash.mpd',
+                'https://hwposter-inland.hwcloudtest.cn/rem/newshaka/h265_1080_sm4c/h264.mpd',
+                'https://hwposter-inland.hwcloudtest.cn/rem/newshaka/h265_1080_sm4s/h264.mpd'
             ];
 
             const titles = [
-                '1 DASH MP4 H264 SD&HD',
-                '2 DASH MP4 H264-clear',
-                '3 cenc-dash-h264-480*270-0.2M-30fps-smooth',
-                '4 cenc-dash-h264-640*480-0.5M-30fps-SD',
-                '5 cenc-dash-h264-1280*720-1.4M-30fps-HD',
-                '6 cenc-dash-h264-1920*1080-4.2M-30fps-FHD',
-                '7 cenc-dash-h264-2560*1440-4.9M-30fps-2K',
-                '8 cenc-dash-h264-3840*2160-8.4M-30fps-4K',
-                '9 cbcs-dash-h264-480*270-0.2M-30fps-smooth'
+                '1 DASH MP4 H265 SD&HD',
+                '2 DASH MP4 H265-clear',
+                '3 cenc-dash-h265-480*270-0.2M-30fps-smooth',
+                '4 cenc-dash-h265-640*480-0.5M-30fps-SD',
+                '5 cenc-dash-h265-1280*720-1.4M-30fps-HD',
+                '6 cenc-dash-h265-1920*1080-4.2M-30fps-FHD',
+                '7 cenc-dash-h265-2560*1440-4.9M-30fps-2K',
+                '8 cenc-dash-h265-3840*2160-8.4M-30fps-4K',
+                '9 cens-dash-h265-480*270-0.2M-30fps-smooth',
+                '10 cens-dash-h265-640*480-0.5M-30fps-SD',
+                '11 cens-dash-h265-1280*720-1.4M-30fps-HD',
+                '12 cens-dash-h265-1920*1080-4.2M-30fps-FHD',
+                '13 cens-dash-h265-2560*1440-4.9M-30fps-2K',
+                '14 cens-dash-h265-3840*2160-8.4M-30fps-4K',
+                '15 cbc1-dash-h265-480*270-0.2M-30fps-smooth',
+                '16 cbc1-dash-h265-640*480-0.5M-30fps-SD',
+                '17 cbc1-dash-h265-1280*720-1.4M-30fps-HD',
+                '18 cbc1-dash-h265-1920*1080-4.2M-30fps-FHD',
+                '19 cbc1-dash-h265-2560*1440-4.9M-30fps-2K',
+                '20 cbc1-dash-h265-3840*2160-8.4M-30fps-4K',
+                '21 cbcs-dash-h265-480*270-0.2M-30fps-smooth',
+                '22 cbcs-dash-h265-640*480-0.5M-30fps-SD',
+                '23 cbcs-dash-h265-1280*720-1.4M-30fps-HD',
+                '24 cbcs-dash-h265-1920*1080-4.2M-30fps-FHD',
+                '25 cbcs-dash-h265-2560*1440-4.9M-30fps-2K',
+                '26 cbcs-dash-h265-3840*2160-8.4M-30fps-4K',
+                '27 sm4c-dash-h265-1920*1080-4.2M-30fps-1080p',
+                '28 sm4s-dash-h265-1920*1080-4.2M-30fps-1080p'
             ]
             let currentTrackIndex = 0;
 
@@ -88,7 +257,6 @@
 <main>
     <div class="container py-4">
         <h4>Wiseplay H265软件解密</h4>
-
         <div class="row">
             <div class="col-md-8">
                 <video controls="true"></video>
@@ -104,6 +272,34 @@
                         </div>
                     </div>
                 </div>
+                <div>1 DASH MP4 H265 SD&HD</div>
+                <div>2 DASH MP4 H265-clear</div>
+                <div>3 cenc-dash-h265-480*270-0.2M-30fps-smooth</div>
+                <div>4 cenc-dash-h265-640*480-0.5M-30fps-SD</div>
+                <div>5 cenc-dash-h265-1280*720-1.4M-30fps-HD</div>
+                <div>6 cenc-dash-h265-1920*1080-4.2M-30fps-FHD</div>
+                <div>7 cenc-dash-h265-2560*1440-4.9M-30fps-2K</div>
+                <div>8 cenc-dash-h265-3840*2160-8.4M-30fps-4K</div>
+                <div>9 cens-dash-h265-480*270-0.2M-30fps-smooth</div>
+                <div>10 cens-dash-h265-640*480-0.5M-30fps-SD</div>
+                <div>11 cens-dash-h265-1280*720-1.4M-30fps-HD</div>
+                <div>12 cens-dash-h265-1920*1080-4.2M-30fps-FHD</div>
+                <div>13 cens-dash-h265-2560*1440-4.9M-30fps-2K</div>
+                <div>14 cens-dash-h265-3840*2160-8.4M-30fps-4K</div>
+                <div>15 cbc1-dash-h265-480*270-0.2M-30fps-smooth</div>
+                <div>16 cbc1-dash-h265-640*480-0.5M-30fps-SD</div>
+                <div>17 cbc1-dash-h265-1280*720-1.4M-30fps-HD</div>
+                <div>18 cbc1-dash-h265-1920*1080-4.2M-30fps-FHD</div>
+                <div>19 cbc1-dash-h265-2560*1440-4.9M-30fps-2K</div>
+                <div>20 cbc1-dash-h265-3840*2160-8.4M-30fps-4K</div>
+                <div>21 cbcs-dash-h265-480*270-0.2M-30fps-smooth</div>
+                <div>22 cbcs-dash-h265-640*480-0.5M-30fps-SD</div>
+                <div>23 cbcs-dash-h265-1280*720-1.4M-30fps-HD</div>
+                <div>24 cbcs-dash-h265-1920*1080-4.2M-30fps-FHD</div>
+                <div>25 cbcs-dash-h265-2560*1440-4.9M-30fps-2K</div>
+                <div>26 cbcs-dash-h265-3840*2160-8.4M-30fps-4K</div>
+                <div>27 sm4c-dash-h265-1920*1080-4.2M-30fps-1080p</div>
+                <div>28 sm4s-dash-h265-1920*1080-4.2M-30fps-1080p</div>
             </div>
         </div>
         <footer class="pt-3 mt-4 text-muted border-top">
