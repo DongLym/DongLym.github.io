@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Wiseplay DRM 离线测试</title>
+
+    <script src="./lib/dash.all.min.js"></script>
+
+    <!-- Bootstrap core CSS -->
+    <link href="./lib/bootstrap/bootstrap.min.css" rel="stylesheet">
+    <link href="./lib/main.css" rel="stylesheet">
+
+    <style>
+        video {
+            width: 640px;
+            height: 360px;
+        }
+    </style>
+
+    <script class="code">
+        var savedSessionToken;
+        var player;
+        function init() {
+            var protData = {
+                "com.widevine.alpha": {
+                    "serverURL": "https://proxy.uat.widevine.com/proxy?video_id=2015_tears&provider=widevine_test",
+                    "sessionType": "persistent-license"
+                }
+            };
+            var video,
+                url = "https://donglym.github.io/tears_uhd.mpd";
+
+            video = document.querySelector("#vid1");
+            player = dashjs.MediaPlayer().create();
+            player.initialize(video, url, false);
+            player.setProtectionData(protData);
+
+            player.on(dashjs.MediaPlayer.events.KEY_SESSION_CREATED, function(e) {
+                console.log("e:", e);  
+                savedSessionToken = e.data;
+                console.log("Session Token:", );            
+                // 你可以在这里保存 session token 以便后续使用
+            });
+        }
+
+        function load() {
+            console.log("load.");
+            var protData = {
+                "com.widevine.alpha": {
+                    "serverURL": "https://proxy.uat.widevine.com/proxy?video_id=2015_tears&provider=widevine_test",
+                    "sessionType": "persistent-license",
+                    "sessionId": savedSessionToken.getSessionId()
+                }
+            };
+            var video,
+                player2,
+                url = "https://donglym.github.io/tears_uhd.mpd";
+
+            video = document.querySelector("#vid2");
+            player2 = dashjs.MediaPlayer().create();
+            player2.initialize(video, url, false);
+            player2.setProtectionData(protData);
+        }
+
+	function close11aa() {
+	    console.log("close.");
+            if (savedSessionToken) {
+                var protectionController = player.getProtectionController();
+                protectionController.closeKeySession(savedSessionToken);
+                console.log("Key session close.");
+            } else {
+                console.log("No session token available.");
+            }
+        }
+
+        function check() {
+            if (location.protocol === 'http:' && location.hostname !== 'localhost') {
+                var out = 'This page has been loaded under http. This might result in the EME APIs not being available to the player and any DRM-protected content will fail to play. ' +
+                    'If you wish to test manifest URLs that require EME support, then <a href=\'https:' + window.location.href.substring(window.location.protocol.length) + '\'>reload this page under https</a>.'
+                var div = document.getElementById('http-warning');
+                div.innerHTML = out;
+                div.style.display = ''
+            }
+        }
+    </script>
+</head>
+<body>
+<ul class="dlist">
+	<li><button type="button" onclick="close11aa()">Close</button></li>
+        <li><button type="button" onclick="load()">Load</button></li>
+</ul>
+<main>
+    <div class="container py-4">
+        <header class="pb-3 mb-4 border-bottom">
+            <img class=""
+                 src="./lib/img/dashjs-logo.png"
+                 width="200">
+        </header>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="alert alert-danger" role="alert" style="display: none" id="http-warning">
+
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="h-100 p-5 bg-light border rounded-3">
+                    <h3>Wiseplay DRM instantiation example</h3>
+                    <p>This example shows how to use dash.js to play streams with Widevine DRM protection. </p>
+                    <p>For a detailed explanation on DRM playback in dash.js checkout the
+                        <a href="https://github.com/Dash-Industry-Forum/dash.js/wiki/Digital-Rights-Management-(DRM)-and-license-acquisition"
+                           target="_blank">Wiki</a>.</p>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <video controls="true" id="vid1" width="640" height="480"></video>
+                <video controls="true" id="vid2" width="640" height="480"></video>
+            </div>
+        </div>
+        <footer class="pt-3 mt-4 text-muted border-top">
+            &copy; DASH-IF
+        </footer>
+    </div>
+</main>
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        init();
+    });
+</script>
+</body>
+</html>
