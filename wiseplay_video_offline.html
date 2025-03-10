@@ -66,6 +66,7 @@
 	    console.log("close.");
             if (savedSessionToken) {
                 var protectionController = player.getProtectionController();
+		player.pause();
                 protectionController.closeKeySession(savedSessionToken);
                 console.log("Key session close.");
             } else {
