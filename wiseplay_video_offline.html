@@ -22,13 +22,13 @@
         var player;
         function init() {
             var protData = {
-                "com.widevine.alpha": {
-                    "serverURL": "https://proxy.uat.widevine.com/proxy?video_id=2015_tears&provider=widevine_test",
+                "com.wiseplay.drm": {
+                    "serverURL": "http://license.dev.trustdta.com:8080/drmproxy/v3/getLicense?contentId=68QLR7GL6OFZFGh&useDrmProxy=1",
                     "sessionType": "persistent-license"
                 }
             };
             var video,
-                url = "https://donglym.github.io/tears_uhd.mpd";
+                url = "https://hwposter-inland.hwcloudtest.cn/rem/ruanjie/h265_3840x2160_8.4m_30fp_cens/dash.mpd";
 
             video = document.querySelector("#vid1");
             player = dashjs.MediaPlayer().create();
@@ -47,14 +47,14 @@
             console.log("load.");
             var protData = {
                 "com.widevine.alpha": {
-                    "serverURL": "https://proxy.uat.widevine.com/proxy?video_id=2015_tears&provider=widevine_test",
+                    "serverURL": "http://license.dev.trustdta.com:8080/drmproxy/v3/getLicense?contentId=68QLR7GL6OFZFGh&useDrmProxy=1",
                     "sessionType": "persistent-license",
                     "sessionId": savedSessionToken.getSessionId()
                 }
             };
             var video,
                 player2,
-                url = "https://donglym.github.io/tears_uhd.mpd";
+                url = "https://hwposter-inland.hwcloudtest.cn/rem/ruanjie/h265_3840x2160_8.4m_30fp_cens/dash.mpd";
 
             video = document.querySelector("#vid2");
             player2 = dashjs.MediaPlayer().create();
@@ -70,16 +70,6 @@
                 console.log("Key session close.");
             } else {
                 console.log("No session token available.");
-            }
-        }
-
-        function check() {
-            if (location.protocol === 'http:' && location.hostname !== 'localhost') {
-                var out = 'This page has been loaded under http. This might result in the EME APIs not being available to the player and any DRM-protected content will fail to play. ' +
-                    'If you wish to test manifest URLs that require EME support, then <a href=\'https:' + window.location.href.substring(window.location.protocol.length) + '\'>reload this page under https</a>.'
-                var div = document.getElementById('http-warning');
-                div.innerHTML = out;
-                div.style.display = ''
             }
         }
     </script>
