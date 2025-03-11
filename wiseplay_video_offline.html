@@ -24,7 +24,12 @@
             var protData = {
                 "com.wiseplay.drm": {
                     "serverURL": "http://license.dev.trustdta.com:8080/drmproxy/v3/getLicense?contentId=68QLR7GL6OFZFGh&useDrmProxy=1",
-                    "sessionType": "persistent-license"
+                    "sessionType": "persistent-license",
+		    "httpRequestHeaders": {
+                	"Access-Control-Allow-Origin": "*",
+                	"Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+                	"Access-Control-Allow-Headers": "Content-Type, Authorization"
+            	    }
                 }
             };
             var video,
