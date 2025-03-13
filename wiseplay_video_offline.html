@@ -37,7 +37,7 @@
 		url = "https://donglym.github.io/dash/h265_3840x2160_8.4m_30fp_cenc_dash.mpd.mpd";
             video = document.querySelector("#vid1");
             player = dashjs.MediaPlayer().create();
-            player.initialize(video, url, false);
+            player.initialize(video, url, true);
             player.setProtectionData(protData);
 
             player.on(dashjs.MediaPlayer.events.KEY_SESSION_CREATED, function(e) {
