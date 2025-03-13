@@ -23,17 +23,5 @@
         </SegmentTemplate>
       </Representation>
     </AdaptationSet>
-    <AdaptationSet id="1" contentType="audio" lang="en" segmentAlignment="true">
-      <Representation id="1" bandwidth="134040" codecs="mp4a.40.2" mimeType="audio/mp4" audioSamplingRate="48000">
-        <AudioChannelConfiguration schemeIdUri="urn:mpeg:dash:23003:3:audio_channel_configuration:2011" value="2"/>
-        <SegmentTemplate timescale="48000" initialization="audio_init.mp4" media="audio_$Number$.mp4" startNumber="1">
-          <SegmentTimeline>
-            <S t="0" d="476160"/>
-            <S t="476160" d="475136" r="4"/>
-            <S t="2851840" d="83968"/>
-          </SegmentTimeline>
-        </SegmentTemplate>
-      </Representation>
-    </AdaptationSet>
   </Period>
 </MPD>
